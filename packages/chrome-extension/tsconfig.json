@@ -1,0 +1,14 @@
+{
+  "extends": "@browser-annotations/tsconfig",
+  "compilerOptions": {
+    "composite": true,
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "paths": {
+      "~/*": ["./src/*"]
+    },
+    "types": ["chrome", "node", "vite/client"]
+  },
+  "include": ["manifest.config.ts", "src/**/*.ts", "src/**/*.tsx"]
+}

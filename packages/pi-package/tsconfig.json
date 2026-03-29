@@ -1,0 +1,9 @@
+{
+  "extends": "@browser-annotations/tsconfig",
+  "compilerOptions": {
+    "composite": true,
+    "lib": ["ESNext"],
+    "types": ["node"]
+  },
+  "include": ["src/**/*.ts"]
+}

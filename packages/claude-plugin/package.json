@@ -1,0 +1,23 @@
+{
+  "name": "@browser-annotations/claude-plugin",
+  "private": true,
+  "description": "Receive browser annotations in Claude Code",
+  "type": "module",
+  "scripts": {
+    "dev": "bun --hot server.ts",
+    "dev:claude": "rm -rf ~/.claude/plugins/cache/browser-annotations && bunx kill-port ${BROWSER_ANNOTATIONS_PORT:-8765} && cd ../../ && claude --dangerously-skip-permissions --dangerously-load-development-channels plugin:browser-annotations@browser-annotations --debug",
+    "check": "bun run check:types",
+    "check:types": "tsgo -b ./tsconfig.json"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0"
+  },
+  "devDependencies": {
+    "@browser-annotations/tsconfig": "workspace:*",
+    "@types/bun": "1.3.11",
+    "@typescript/native-preview": "catalog:"
+  },
+  "engines": {
+    "bun": "^1.3.9"
+  }
+}

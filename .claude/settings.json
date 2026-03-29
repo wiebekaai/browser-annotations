@@ -1,0 +1,5 @@
+{
+  "enabledPlugins": {
+    "browser-annotations@browser-annotations": true
+  }
+}

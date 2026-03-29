@@ -1,0 +1,9 @@
+{
+  "extends": "@browser-annotations/tsconfig",
+  "compilerOptions": {
+    "composite": true,
+    "lib": ["DOM", "ESNext"],
+    "types": ["bun"]
+  }
+  // "include": ["server.ts"]
+}

@@ -1,0 +1,14 @@
+# System
+.DS_Store
+
+# Dev
+node_modules
+.bun
+
+# Artifacts
+build
+
+# Env
+.env
+.env.*
+!.env.example

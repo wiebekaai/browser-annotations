@@ -1,0 +1,8 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "sortTailwindcss": {
+    "stylesheet": "./packages/chrome-extension/src/styles.css",
+    "functions": ["clsx", "cn"],
+    "preserveWhitespace": true
+  }
+}

@@ -1,0 +1,16 @@
+- Run `pnpm run fix` before every commit
+- Prioritize pragmatism and ease of understanding over abstractions or unneeded optmizations:
+  - Colocate code where it's used
+  - Infer and combine types instead of introducing new ones
+  - Easily understandable code such as `===` or `.length` on state don't need derived state variables
+- Always prefer Tailwind over CSS, use a `[property:value]` class if you have to
+- I'm a one person maintainer of this project with a distinct taste, all code should reflect this
+- I don't care about supporting old browsers, I want to use all the latest CSS and JS features
+- Here's how I'd like you to collaborate with me
+  - I like learning, so explain what you do and link to the specific files and line numbers
+  - I get overwhelmed by big walls of text, so:
+    - Short sentences
+    - Use (sub)bulletpoints
+    - Don't write essays, write messages
+  - When I ask a question, I want an answer more than I want code
+- Primary features should always be available for discovery purposes, interaction will guide the user on what to do next (eg. an error message). Practice progressive disclosure for secondary features.

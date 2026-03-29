@@ -1,0 +1,27 @@
+{
+  "name": "@browser-annotations/chrome-extension",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "check": "bun run check:types",
+    "check:types": "tsgo -b ./tsconfig.json",
+    "dev": "vite"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "solid-js": "1.9.12",
+    "tailwind-merge": "^3.5.0"
+  },
+  "devDependencies": {
+    "@browser-annotations/tsconfig": "workspace:*",
+    "@crxjs/vite-plugin": "2.2.1",
+    "@tailwindcss/vite": "4.2.2",
+    "@types/chrome": "0.1.38",
+    "@types/node": "25.5.0",
+    "@typescript/native-preview": "catalog:",
+    "tailwindcss": "4.2.2",
+    "vite": "^6.3.6",
+    "vite-plugin-solid": "2.11.11"
+  }
+}

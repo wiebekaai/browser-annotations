@@ -1,0 +1,13 @@
+{
+  "name": "browser-annotations",
+  "owner": {
+    "name": "Wiebe"
+  },
+  "plugins": [
+    {
+      "name": "browser-annotations",
+      "source": "./packages/claude-plugin",
+      "description": "Receive browser annotations directly in your Claude Code session"
+    }
+  ]
+}

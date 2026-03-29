@@ -1,0 +1,7 @@
+{
+  "name": "@browser-annotations/tsconfig",
+  "private": true,
+  "exports": {
+    ".": "./tsconfig.json"
+  }
+}

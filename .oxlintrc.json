@@ -1,0 +1,11 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "overrides": [
+    {
+      "files": ["packages/chrome-extension/src/**/*.{js,jsx,ts,tsx}"],
+      "rules": {
+        "no-restricted-imports": ["error", { "patterns": ["./**", "../**"] }]
+      }
+    }
+  ]
+}

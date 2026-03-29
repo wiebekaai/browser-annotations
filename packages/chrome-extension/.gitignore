@@ -1,0 +1,7 @@
+dist/
+tsconfig.tsbuildinfo
+manifest.config.js
+manifest.config.d.ts
+src/**/*.js
+src/**/*.jsx
+src/**/*.d.ts

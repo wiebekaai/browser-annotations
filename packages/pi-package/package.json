@@ -1,0 +1,42 @@
+{
+  "name": "@browser-annotations/pi-package",
+  "version": "1.0.0",
+  "description": "Send browser annotations to pi",
+  "keywords": [
+    "browser-annotations",
+    "pi-package"
+  ],
+  "homepage": "https://github.com/wiebekaai/browser-annotations",
+  "license": "MIT",
+  "author": {
+    "name": "Wiebe Kaai"
+  },
+  "files": [
+    "src",
+    "README.md",
+    "tsconfig.json"
+  ],
+  "type": "module",
+  "scripts": {
+    "dev": "cd ../../ && pi -e ./packages/pi-package/src/index.ts",
+    "check": "bun run check:types",
+    "check:types": "tsgo -b ./tsconfig.json"
+  },
+  "devDependencies": {
+    "@browser-annotations/tsconfig": "workspace:*",
+    "@mariozechner/pi-coding-agent": "0.66.1",
+    "@types/node": "25.5.0",
+    "@typescript/native-preview": "catalog:"
+  },
+  "peerDependencies": {
+    "@mariozechner/pi-coding-agent": "*"
+  },
+  "engines": {
+    "node": ">=20.6.0"
+  },
+  "pi": {
+    "extensions": [
+      "./src/index.ts"
+    ]
+  }
+}

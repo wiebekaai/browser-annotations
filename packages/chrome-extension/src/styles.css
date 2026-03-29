@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+@theme {
+  --font-mono: "SF Mono", "Menlo", "Consolas", monospace;
+  --text-2xs: 0.625rem;
+  --color-blue: var(--color-blue-500);
+  --color-focus: var(--color-blue-400);
+  --color-panel: var(--color-neutral-900);
+  --ease-out-quint: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+html {
+  background-color: var(--color-panel);
+}
+
+body {
+  min-height: 100svh;
+  margin: 0;
+  color-scheme: light dark;
+}
+
+button:not(:disabled) {
+  cursor: pointer;
+}
+
+@property --scroll-fade-top {
+  syntax: "<length>";
+  initial-value: 0px;
+  inherits: false;
+}
+
+@property --scroll-fade-bottom {
+  syntax: "<length>";
+  initial-value: 0px;
+  inherits: false;
+}
+
+@keyframes scroll-fade-top {
+  to {
+    --scroll-fade-top: var(--scroll-fade-size, 0px);
+  }
+}
+
+@keyframes scroll-fade-bottom {
+  from {
+    --scroll-fade-bottom: var(--scroll-fade-size, 0px);
+  }
+  to {
+    --scroll-fade-bottom: 0px;
+  }
+}
+
+@keyframes rotate {
+  100% {
+    rotate: 1turn;
+  }
+}
+
+/* Applies top and bottom scroll-edge fades using scroll-driven animation. */
+@utility scroll-fade {
+  --scroll-fade-size: 24px;
+
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    black var(--scroll-fade-top),
+    black calc(100% - var(--scroll-fade-bottom)),
+    transparent
+  );
+  mask-composite: intersect;
+
+  animation-name: scroll-fade-top, scroll-fade-bottom;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+  animation-timeline: scroll(self block), scroll(self block);
+  animation-range:
+    0px var(--scroll-fade-size),
+    calc(100% - var(--scroll-fade-size)) 100%;
+}
+
+@layer base {
+  :focus-visible {
+    outline: 1px solid var(--color-focus);
+    outline-offset: 1px;
+  }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    box-shadow: 0 0 0 1000px var(--color-background) inset;
+  }
+}
