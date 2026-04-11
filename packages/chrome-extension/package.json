@@ -17,6 +17,7 @@
     "check:types": "tsgo -b ./tsconfig.json",
     "dev": "vite",
     "prepack": "vite build",
+    "publish": "npm publish --access public",
     "postinstall": "node scripts/postinstall.js"
   },
   "dependencies": {

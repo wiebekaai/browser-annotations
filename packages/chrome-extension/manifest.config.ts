@@ -10,7 +10,7 @@ const iconSet = {
 export default defineManifest({
   manifest_version: 3,
   name: "Browser Annotations",
-  description: "Capture browser annotations from Chrome DevTools.",
+  description: "Capture feedback from the Chrome DevTools.",
   version: "1.0",
   icons: iconSet,
   permissions: ["storage"],

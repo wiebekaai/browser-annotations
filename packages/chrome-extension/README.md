@@ -12,7 +12,9 @@ bun install -g @browser-annotations/chrome-extension
 pnpm install -g @browser-annotations/chrome-extension
 ```
 
-Then open `chrome://extensions`, enable **Developer mode**, click **Load unpacked**, and select `~/.browser-annotations/chrome-extension`.
+Open `chrome://extensions`, enable **Developer mode**, click **Load unpacked**, and select:
+- `~/browser-annotations/chrome-extension` — created automatically during install
+- or the `dist` folder in your package manager's global directory, if you prefer no symlink
 
 ## Usage
 

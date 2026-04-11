@@ -6,9 +6,7 @@ A Chrome extension for developers to annotate elements and send feedback to agen
 
 ## Installation
 
-### Chrome extensions
-
-Install the extension through a package manager and load it as an unpacked extension in Chrome.
+### Chrome extension
 
 ```bash
 # bun
@@ -18,7 +16,9 @@ bun install -g @browser-annotations/chrome-extension
 pnpm install -g @browser-annotations/chrome-extension
 ```
 
-Then open `chrome://extensions`, enable **Developer mode**, click **Load unpacked**, and select `~/.browser-annotations/chrome-extension`.
+Open `chrome://extensions`, enable **Developer mode**, click **Load unpacked**, and select:
+- `~/browser-annotations/chrome-extension` — created automatically during install
+- or the `dist` folder in your package manager's global directory, if you prefer no symlink
 
 ### pi
 
