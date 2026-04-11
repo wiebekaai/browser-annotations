@@ -2,9 +2,13 @@
 
 A Chrome extension for developers to annotate elements and send feedback to agents.
 
+## Installation
+
+> Currently figuring out how I can best distribute the packages :)
+
 ## Usage
 
-1. Use the Chrome DevTools to select an element (<kbd>CMD OPT C</kbd>)
+1. Use the Chrome DevTools to select an element
 2. Write your feedback in the `Feedback` tab
 3. Use `Add` to batch annotations
 4. Hit `Submit` to notify your agent or copy to clipboard
@@ -18,10 +22,6 @@ A Chrome extension for developers to annotate elements and send feedback to agen
 - Send feedback directly or batch annotations
 - Keyboard shortcuts for every action
 - Persists annotations per site, allowing feedback across multiple pages
-
-## Installation
-
-> Currently figuring out how I can best distribute the packages :)
 
 ## Example output
 
