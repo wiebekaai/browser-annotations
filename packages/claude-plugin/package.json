@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "bun --hot server.ts",
-    "dev:claude": "rm -rf ~/.claude/plugins/cache/browser-annotations && bunx kill-port ${BROWSER_ANNOTATIONS_PORT:-8765} && cd ../../ && claude --dangerously-skip-permissions --dangerously-load-development-channels plugin:browser-annotations@browser-annotations --debug",
+    "dev:claude": "rm -rf ~/.claude/plugins/cache/browser-annotations ~/.claude/plugins/data/browser-annotations-browser-annotations/node_modules ~/.claude/plugins/data/browser-annotations-browser-annotations/package.json && bunx kill-port ${BROWSER_ANNOTATIONS_PORT:-8765} && cd ../../ && claude --dangerously-skip-permissions --dangerously-load-development-channels plugin:browser-annotations@browser-annotations --debug",
     "check": "bun run check:types",
     "check:types": "tsgo -b ./tsconfig.json"
   },

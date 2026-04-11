@@ -1,10 +1,28 @@
 # Browser Annotations
 
+Annotate elements and send them to your agents right from your Chrome DevTools.
+
 A Chrome extension for developers to annotate elements and send feedback to agents.
 
 ## Installation
 
 > Currently figuring out how I can best distribute the packages :)
+
+### Claude Code
+
+```bash
+# 1. Start Claude
+claude
+
+# 2. Add marketplace and install extension
+/plugin marketplace add wiebekaai/browser-annotations
+/plugin install browser-annotations@browser-annotations
+
+# 3. Restart Claude with the plugin
+claude --dangerously-load-development-channels plugin:browser-annotations@browser-annotations
+```
+
+> This plugin uses [channels](https://code.claude.com/docs/en/channels-reference) which are currently in [research preview](https://code.claude.com/docs/en/channels#research-preview), this is why you have to pass `--dangerously-load-development-channels`.
 
 ## Usage
 
@@ -12,6 +30,8 @@ A Chrome extension for developers to annotate elements and send feedback to agen
 2. Write your feedback in the `Feedback` tab
 3. Use `Add` to batch annotations
 4. Hit `Submit` to notify your agent or copy to clipboard
+
+![Screenshot](docs/screenshot.png)
 
 ## Features
 
