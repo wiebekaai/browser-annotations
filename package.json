@@ -1,6 +1,9 @@
 {
   "name": "@browser-annotations/workspace",
   "private": true,
+  "keywords": [
+    "browser-annotations"
+  ],
   "scripts": {
     "format": "oxfmt . --check",
     "format:fix": "oxfmt .",
@@ -16,5 +19,10 @@
     "oxfmt": "0.42.0",
     "oxlint": "1.57.0"
   },
-  "packageManager": "pnpm@10.18.3"
+  "packageManager": "pnpm@10.18.3",
+  "pi": {
+    "extensions": [
+      "./packages/pi-package/src/index.ts"
+    ]
+  }
 }

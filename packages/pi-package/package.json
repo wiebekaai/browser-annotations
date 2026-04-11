@@ -1,13 +1,8 @@
 {
   "name": "@browser-annotations/pi-package",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Send browser annotations to pi",
-  "keywords": [
-    "browser-annotations",
-    "pi-package"
-  ],
   "homepage": "https://github.com/wiebekaai/browser-annotations",
-  "license": "MIT",
   "author": {
     "name": "Wiebe Kaai"
   },
