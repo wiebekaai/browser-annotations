@@ -8,7 +8,22 @@ A Chrome extension for developers to annotate elements and send feedback to agen
 
 > Currently figuring out how I can best distribute the packages :)
 
+### pi
+
+```bash
+# 1. Install the extension
+pi install git:github.com/wiebekaai/browser-annotations
+
+# 2. Start pi
+pi
+
+# 3. Start the browser-annotations server
+/browser-annotations
+```
+
 ### Claude Code
+
+Claude Code is a mess, but I love Opus too, so here's how to use it:
 
 ```bash
 # 1. Start Claude Code
@@ -34,7 +49,9 @@ bunx kill-port 8765
 3. Use `Add` to batch annotations
 4. Hit `Submit` to notify your agent or copy to clipboard
 
-![Screenshot](docs/screenshot.png)
+![Sending feedback from the Chrome DevTools to pi.](docs/screenshot.png)
+
+<sub>Sending feedback from the Chrome DevTools to pi.</sub>
 
 ## Features
 
