@@ -55,10 +55,10 @@ bunx kill-port 8765
 
 ## Features
 
-- Captures element context, page context, and an element screenshot
-- Maps elements to source code in React and Svelte (for example `pages/index.tsx:30`)
-- Supports webhook and clipboard output modes
-- Claude Code plugin and Pi package to send feedback straight to your agent
+- Captures element context, page context, and a screenshot
+- Maps elements to source code in React and Svelte
+- Supports webhook and clipboard output
+- Extensions for pi and Claude Code to send feedback straight to your agent
 - Send feedback directly or batch annotations
 - Keyboard shortcuts for every action
 - Persists annotations per site, allowing feedback across multiple pages
