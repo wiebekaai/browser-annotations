@@ -1,39 +1,11 @@
 {
   "name": "browser-annotations",
   "description": "Send browser annotations to Claude Code",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "author": {
     "name": "Wiebe Kaai"
   },
   "homepage": "https://github.com/wiebekaai/browser-annotations",
   "license": "MIT",
-  "keywords": [],
-  "mcpServers": {
-    "browser-annotations": {
-      "command": "bun",
-      "args": ["${CLAUDE_PLUGIN_ROOT}/server.ts"],
-      "cwd": "${CLAUDE_PLUGIN_ROOT}",
-      "env": {
-        "ANNOTATIONS_DATA_DIR": "${CLAUDE_PLUGIN_DATA}",
-        "NODE_PATH": "${CLAUDE_PLUGIN_DATA}/node_modules"
-      }
-    }
-  },
-  "channels": [
-    {
-      "server": "browser-annotations"
-    }
-  ],
-  "hooks": {
-    "SessionStart": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "diff -q \"${CLAUDE_PLUGIN_ROOT}/package.json\" \"${CLAUDE_PLUGIN_DATA}/package.json\" >/dev/null 2>&1 || (cd \"${CLAUDE_PLUGIN_DATA}\" && cp \"${CLAUDE_PLUGIN_ROOT}/package.json\" . && bun install --production) || rm -f \"${CLAUDE_PLUGIN_DATA}/package.json\""
-          }
-        ]
-      }
-    ]
-  }
+  "keywords": ["browser-annotations", "channel", "mcp"]
 }

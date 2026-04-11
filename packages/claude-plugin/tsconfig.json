@@ -1,5 +1,5 @@
 {
-  "extends": "@browser-annotations/tsconfig",
+  "extends": "../tsconfig/tsconfig.json",
   "compilerOptions": {
     "composite": true,
     "lib": ["DOM", "ESNext"],
