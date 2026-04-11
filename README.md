@@ -11,18 +11,21 @@ A Chrome extension for developers to annotate elements and send feedback to agen
 ### Claude Code
 
 ```bash
-# 1. Start Claude
+# 1. Start Claude Code
 claude
 
 # 2. Add marketplace and install extension
 /plugin marketplace add wiebekaai/browser-annotations
 /plugin install browser-annotations@browser-annotations
 
-# 3. Restart Claude with the plugin
+# 3. Restart Claude Code with the plugin
 claude --dangerously-load-development-channels plugin:browser-annotations@browser-annotations
+
+# ?. If the server keeps running after closing Claude Code, run this. I'll try to find a better solution.
+bunx kill-port 8765
 ```
 
-> This plugin uses [channels](https://code.claude.com/docs/en/channels-reference) which are currently in [research preview](https://code.claude.com/docs/en/channels#research-preview), this is why you have to pass `--dangerously-load-development-channels`.
+> This plugin uses [channels](https://code.claude.com/docs/en/channels-reference) that are currently in [research preview](https://code.claude.com/docs/en/channels#research-preview). That's why you need to pass `--dangerously-load-development-channels`.
 
 ## Usage
 
