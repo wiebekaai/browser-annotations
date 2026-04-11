@@ -1,8 +1,10 @@
 # Browser Annotations
 
-Annotate elements and send them to your agents right from your Chrome DevTools.
+Capture feedback from your browser.
 
-A Chrome extension for developers to annotate elements and send feedback to agents.
+Select elements in the Chrome DevTools, write feedback, and send it to your coding agent.
+
+![Sending feedback from the Chrome DevTools to pi.](docs/screenshot.png)
 
 ## Installation
 
@@ -60,10 +62,6 @@ bunx kill-port 8765
 2. Write your feedback in the `Feedback` tab
 3. Use `Add` to batch annotations
 4. Hit `Submit` to notify your agent or copy to clipboard
-
-![Sending feedback from the Chrome DevTools to pi.](docs/screenshot.png)
-
-<sub>Sending feedback from the Chrome DevTools to pi.</sub>
 
 ## Features
 
