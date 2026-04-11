@@ -6,22 +6,28 @@ Install the [Chrome extension](#chrome-extension) and use it with [pi](#pi) or [
 
 ![Sending feedback from the Chrome DevTools to pi.](docs/screenshot.png)
 
+## Features
+
+- **Annotate elements** – Inspect an element, write feedback, and send it to your agent
+- **Rich context** – Captures selector, position, size, viewport, device info, and screenshot
+- **Source mapping** – Links elements to source code in React and Svelte during development
+- **Works everywhere** – Runs in your DevTools, works on any website
+- **Agent collaboration** – Send feedback directly to your [pi](#pi) or [Claude Code](#claude-code) session
+- **Batch annotations** – Combine feedback across multiple elements and pages
+- **Clipboard mode** – Copy annotations as markdown for any workflow
+
 ## Installation
 
 ### Chrome extension
 
 ```bash
-# bun
-bun install -g @browser-annotations/chrome-extension
-
-# or pnpm
 pnpm install -g @browser-annotations/chrome-extension
 ```
 
-Open `chrome://extensions`, enable **Developer mode**, click **Load unpacked**, and select:
+Then load the extension in Chrome:
 
-- `~/browser-annotations/chrome-extension` — created automatically during install
-- or the `dist` folder in your package manager's global directory, if you prefer no symlink
+1. Open `chrome://extensions` and enable **Developer mode**
+2. Click **Load unpacked** and select `~/browser-annotations/chrome-extension`
 
 ### pi
 
@@ -38,7 +44,7 @@ pi
 
 ### Claude Code
 
-Claude Code is a mess, but I love Opus too, so here's how to use it:
+Claude Code is a mess, but man do I love Opus, so here's how to use it:
 
 ```bash
 # 1. Start Claude Code
@@ -48,33 +54,24 @@ claude
 /plugin marketplace add wiebekaai/browser-annotations
 /plugin install browser-annotations@browser-annotations
 
-# 3. Restart Claude Code with the plugin
+# 3. Restart Claude Code with the plugin (here's why it's dangerous: https://code.claude.com/docs/en/channels#research-preview)
 claude --dangerously-load-development-channels plugin:browser-annotations@browser-annotations
 
 # ?. If the server keeps running after closing Claude Code, run this. I'll try to find a better solution.
 bunx kill-port 8765
 ```
 
-> This plugin uses [channels](https://code.claude.com/docs/en/channels-reference) that are currently in [research preview](https://code.claude.com/docs/en/channels#research-preview). That's why you need to pass `--dangerously-load-development-channels`.
+## How it works
 
-## Usage
-
-1. Use the Chrome DevTools to select an element
+1. Select an element in the Chrome DevTools
 2. Write your feedback in the `Feedback` tab
-3. Use `Add` to batch annotations
-4. Hit `Submit` to notify your agent or copy to clipboard
+3. Hit `Submit` to send it to your agent or copy to clipboard
 
-## Features
+Use `Add` to batch multiple annotations across elements or pages. Annotations persist per website. Output is formatted as markdown.
 
-- **Annotate elements** – Inspect an element, write feedback, and send it to your agent
-- **Rich context** – Captures selector, position, size, viewport, device info, and screenshot
-- **Source mapping** – Links elements to source code in React and Svelte during development
-- **Works everywhere** – Runs in your DevTools, works on any website
-- **Agent integration** – Send feedback directly to [pi](#pi) or [Claude Code](#claude-code)
-- **Batch annotations** – Combine feedback across multiple elements and pages
-- **Clipboard mode** – Copy annotations as markdown for any workflow
+You can also copy feedback to your clipboard instead.
 
-## Example output
+### Example output
 
 ```md
 # Feedback
