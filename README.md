@@ -6,7 +6,19 @@ A Chrome extension for developers to annotate elements and send feedback to agen
 
 ## Installation
 
-> Currently figuring out how I can best distribute the packages :)
+### Chrome extensions
+
+Install the extension through a package manager and load it as an unpacked extension in Chrome.
+
+```bash
+# bun
+bun install -g browser-annotations
+
+# or pnpm
+pnpm install -g browser-annotations
+```
+
+Then open `chrome://extensions`, enable **Developer mode**, click **Load unpacked**, and select `~/.browser-annotations/chrome-extension`.
 
 ### pi
 

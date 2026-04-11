@@ -1,12 +1,21 @@
 {
-  "name": "@browser-annotations/chrome-extension",
-  "private": true,
+  "name": "browser-annotations",
+  "version": "0.1.0",
+  "description": "Annotate elements and send them to your agents right from your Chrome DevTools.",
+  "license": "MIT",
+  "repository": "wiebekaai/browser-annotations",
+  "files": [
+    "dist",
+    "scripts"
+  ],
   "type": "module",
   "scripts": {
     "build": "vite build",
     "check": "bun run check:types",
     "check:types": "tsgo -b ./tsconfig.json",
-    "dev": "vite"
+    "dev": "vite",
+    "prepack": "vite build",
+    "postinstall": "node scripts/postinstall.js"
   },
   "dependencies": {
     "clsx": "^2.1.1",
