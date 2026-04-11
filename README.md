@@ -19,6 +19,7 @@ pnpm install -g @browser-annotations/chrome-extension
 ```
 
 Open `chrome://extensions`, enable **Developer mode**, click **Load unpacked**, and select:
+
 - `~/browser-annotations/chrome-extension` — created automatically during install
 - or the `dist` folder in your package manager's global directory, if you prefer no symlink
 
@@ -65,13 +66,13 @@ bunx kill-port 8765
 
 ## Features
 
-- Captures element context, page context, and a screenshot
-- Maps elements to source code in React and Svelte
-- Supports webhook and clipboard output
-- Extensions for pi and Claude Code to send feedback straight to your agent
-- Send feedback directly or batch annotations
-- Keyboard shortcuts for every action
-- Persists annotations per site, allowing feedback across multiple pages
+- **Annotate elements** – Inspect an element, write feedback, and send it to your agent
+- **Rich context** – Captures selector, position, size, viewport, device info, and screenshot
+- **Source mapping** – Links elements to source code in React and Svelte during development
+- **Works everywhere** – Runs in your DevTools, works on any website
+- **Agent integration** – Send feedback directly to [pi](#pi) or [Claude Code](#claude-code)
+- **Batch annotations** – Combine feedback across multiple elements and pages
+- **Clipboard mode** – Copy annotations as markdown for any workflow
 
 ## Example output
 
