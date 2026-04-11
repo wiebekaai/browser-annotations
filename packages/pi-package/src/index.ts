@@ -19,6 +19,7 @@ const CORS_HEADERS = {
   "Access-Control-Allow-Headers": "Content-Type",
 };
 const BROWSER_PROMPT = "You receive feedback from the Chrome DevTools extension.";
+const COMMAND_NAME = "browser-annotations";
 
 type JsonRecord = Record<string, unknown>;
 
@@ -154,6 +155,41 @@ function listen(server: HttpServer, port: number, host: string) {
   });
 }
 
+async function ensureTempDir(state: RuntimeState) {
+  if (!state.tempDir) {
+    state.tempDir = await mkdtemp(join(tmpdir(), "browser-annotations-"));
+  }
+
+  return state.tempDir;
+}
+
+async function cleanupTempDir(state: RuntimeState) {
+  if (!state.tempDir) return;
+
+  await rm(state.tempDir, { recursive: true, force: true });
+  state.tempDir = undefined;
+}
+
+function updateStatus(
+  ctx: { hasUI: boolean; ui: { setStatus(key: string, value?: string): void } },
+  state: RuntimeState,
+) {
+  if (!ctx.hasUI) return;
+
+  const value = state.server ? `→ Listening on ${getServerUrl(state.host, state.port)}` : undefined;
+  ctx.ui.setStatus(STATUS_KEY, value);
+}
+
+function parsePort(value: string) {
+  const port = Number.parseInt(value, 10);
+
+  if (!Number.isInteger(port) || port < 1 || port > 65_535) {
+    throw new Error(`Invalid port: ${value}`);
+  }
+
+  return port;
+}
+
 export default function browserAnnotationsExtension(pi: ExtensionAPI) {
   const state: RuntimeState = {
     hasInjectedPrompt: false,
@@ -162,7 +198,7 @@ export default function browserAnnotationsExtension(pi: ExtensionAPI) {
   };
 
   pi.on("before_agent_start", async (event) => {
-    if (state.hasInjectedPrompt) {
+    if (state.hasInjectedPrompt || !state.server) {
       return;
     }
 
@@ -173,11 +209,14 @@ export default function browserAnnotationsExtension(pi: ExtensionAPI) {
     };
   });
 
-  pi.on("session_start", async (_event, ctx) => {
-    state.hasInjectedPrompt = false;
-    state.tempDir = await mkdtemp(join(tmpdir(), "browser-annotations-"));
+  async function stopServer() {
+    await closeServer(state.server);
+    state.server = undefined;
+    await cleanupTempDir(state);
+  }
 
-    const server = createServer(async (request, response) => {
+  function createAnnotationServer() {
+    return createServer(async (request, response) => {
       if (request.method === "OPTIONS") {
         response.writeHead(204, CORS_HEADERS);
         response.end();
@@ -197,16 +236,17 @@ export default function browserAnnotationsExtension(pi: ExtensionAPI) {
       try {
         const rawBody = await readRequestBody(request);
         const contentType = request.headers["content-type"] || "";
+        const tempDir = await ensureTempDir(state);
 
         let content: string;
         let details: unknown;
 
         if (contentType.includes("text/markdown")) {
-          content = await processMarkdownScreenshots(rawBody, state.tempDir!);
+          content = await processMarkdownScreenshots(rawBody, tempDir);
           details = { markdown: content };
         } else {
           const parsedBody = JSON.parse(rawBody) as unknown;
-          const payload = await normalizePayload(parsedBody, state.tempDir!);
+          const payload = await normalizePayload(parsedBody, tempDir);
           content = JSON.stringify(payload);
           details = payload;
         }
@@ -224,45 +264,119 @@ export default function browserAnnotationsExtension(pi: ExtensionAPI) {
         writeEmpty(response, 200);
       } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
-
-        if (ctx.hasUI) {
-          ctx.ui.notify(`Browser annotation failed: ${message}`, "error");
-        }
-
         writeJson(response, 400, { ok: false, error: message });
       }
     });
+  }
+
+  async function startServer(
+    ctx: {
+      hasUI: boolean;
+      ui: {
+        notify(message: string, level?: "info" | "warning" | "error"): void;
+        setStatus(key: string, value?: string): void;
+      };
+    },
+    nextPort: number,
+  ) {
+    if (state.server && state.port === nextPort) {
+      updateStatus(ctx, state);
+
+      if (ctx.hasUI) {
+        ctx.ui.notify(
+          `Browser annotations already listening on ${getServerUrl(state.host, state.port)}`,
+          "info",
+        );
+      }
+
+      return;
+    }
+
+    await stopServer();
+    state.port = nextPort;
+    state.hasInjectedPrompt = false;
+    await ensureTempDir(state);
+
+    const server = createAnnotationServer();
 
     try {
       await listen(server, state.port, state.host);
       state.server = server;
+      updateStatus(ctx, state);
 
       if (ctx.hasUI) {
-        ctx.ui.notify("Browser annotations plugin loaded", "info");
-        ctx.ui.setStatus(STATUS_KEY, `→ Listening on ${getServerUrl(state.host, state.port)}`);
+        ctx.ui.notify(
+          `Browser annotations listening on ${getServerUrl(state.host, state.port)}`,
+          "info",
+        );
       }
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
       await closeServer(server);
+      state.server = undefined;
+      await cleanupTempDir(state);
+      updateStatus(ctx, state);
 
       if (ctx.hasUI) {
-        ctx.ui.setStatus(STATUS_KEY, `browser annotations unavailable (${message})`);
         ctx.ui.notify(`Could not start browser annotations server: ${message}`, "error");
       }
     }
+  }
+
+  pi.registerCommand(COMMAND_NAME, {
+    description: "Start, stop, or inspect the browser annotations webhook server",
+    handler: async (args, ctx) => {
+      const input = args.trim();
+
+      if (!input) {
+        if (state.server) {
+          ctx.ui.notify(
+            `Browser annotations listening on ${getServerUrl(state.host, state.port)}`,
+            "info",
+          );
+          return;
+        }
+
+        await startServer(ctx, state.port);
+        return;
+      }
+
+      if (input === "status") {
+        const message = state.server
+          ? `Browser annotations listening on ${getServerUrl(state.host, state.port)}`
+          : "Browser annotations server is stopped";
+        ctx.ui.notify(message, "info");
+        return;
+      }
+
+      if (input === "stop") {
+        if (!state.server) {
+          ctx.ui.notify("Browser annotations server is already stopped", "info");
+          return;
+        }
+
+        await stopServer();
+        updateStatus(ctx, state);
+        ctx.ui.notify("Browser annotations server stopped", "info");
+        return;
+      }
+
+      try {
+        await startServer(ctx, parsePort(input));
+      } catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
+        ctx.ui.notify(`${message}. Usage: /${COMMAND_NAME} [port|status|stop]`, "error");
+      }
+    },
+  });
+
+  pi.on("session_start", async (_event, ctx) => {
+    state.hasInjectedPrompt = false;
+    updateStatus(ctx, state);
   });
 
   pi.on("session_shutdown", async (_event, ctx) => {
-    await closeServer(state.server);
-    state.server = undefined;
-
-    if (state.tempDir) {
-      await rm(state.tempDir, { recursive: true, force: true });
-      state.tempDir = undefined;
-    }
-
-    if (ctx.hasUI) {
-      ctx.ui.setStatus(STATUS_KEY, undefined);
-    }
+    await stopServer();
+    updateStatus(ctx, state);
   });
 }

@@ -4,7 +4,7 @@ A pi extension that listens for browser annotation webhook requests and injects 
 
 ## What it does
 
-- Starts a local HTTP server when a pi session starts
+- Starts a local HTTP server when you run `/browser-annotations`
 - Accepts the same payloads as this repo's Chrome extension
 - Saves base64 screenshots to temporary files
 - Sends a compact browser-annotation message into pi
@@ -22,6 +22,22 @@ pi install -l ./packages/pi-package
 
 ```bash
 pi -e ./packages/pi-package/src/index.ts
+```
+
+## Run
+
+Start pi, then run:
+
+```text
+/browser-annotations
+```
+
+Optional commands:
+
+```text
+/browser-annotations 9001
+/browser-annotations status
+/browser-annotations stop
 ```
 
 ## Default webhook URL
