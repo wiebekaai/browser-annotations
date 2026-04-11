@@ -1,10 +1,12 @@
 {
-  "name": "browser-annotations",
-  "version": "0.1.0",
+  "name": "@browser-annotations/chrome-extension",
+  "version": "0.2.0",
   "description": "Annotate elements and send them to your agents right from your Chrome DevTools.",
+  "homepage": "https://browser-annotations.dev/",
   "license": "MIT",
   "repository": "wiebekaai/browser-annotations",
   "files": [
+    "README.md",
     "dist",
     "scripts"
   ],

@@ -12,10 +12,10 @@ Install the extension through a package manager and load it as an unpacked exten
 
 ```bash
 # bun
-bun install -g browser-annotations
+bun install -g @browser-annotations/chrome-extension
 
 # or pnpm
-pnpm install -g browser-annotations
+pnpm install -g @browser-annotations/chrome-extension
 ```
 
 Then open `chrome://extensions`, enable **Developer mode**, click **Load unpacked**, and select `~/.browser-annotations/chrome-extension`.
