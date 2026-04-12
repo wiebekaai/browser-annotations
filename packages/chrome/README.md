@@ -2,7 +2,7 @@
 
 Browser Annotations is a DevTools extension to send feedback to your agent.
 
-Select an element, add feedback, and send it to your pi or Claude Code session.
+Select an element, add feedback, and send it to your pi or Claude Code session to work on it.
 
 ![Sending feedback from the Chrome DevTools to pi.](docs/screenshot.png)
 
