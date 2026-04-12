@@ -4,7 +4,7 @@
   "description": "Receive browser annotations in Claude Code",
   "type": "module",
   "scripts": {
-    "start": "pnpm install --prod --force && node src/index.ts",
+    "start": "pnpm install --prod; node src/index.ts",
     "dev": "node --watch src/index.ts",
     "dev:claude": "rm -rf ~/.claude/plugins/cache/browser-annotations && cd ../../ && claude --dangerously-skip-permissions --dangerously-load-development-channels plugin:claude@browser-annotations --debug",
     "check": "pnpm run check:types",
