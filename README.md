@@ -39,6 +39,8 @@ Claude Code is a mess, but man do I love Opus, so here's how to use it:
 3. Install the plugin with `/plugin install browser-annotations@browser-annotations`
 4. Restart with `claude --dangerously-load-development-channels plugin:browser-annotations@browser-annotations`
 
+> If the server keeps running after closing Claude Code, run `bunx kill-port 8765`.
+
 ## Usage
 
 1. Choose your mode
