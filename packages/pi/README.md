@@ -1,4 +1,4 @@
-# @browser-annotations/pi-package
+# @browser-annotations/pi
 
 A pi extension that listens for browser annotation webhook requests and injects them into the current pi session.
 
@@ -15,13 +15,13 @@ A pi extension that listens for browser annotation webhook requests and injects 
 ### Local project install
 
 ```bash
-pi install -l ./packages/pi-package
+pi install -l ./packages/pi
 ```
 
 ### One-off test
 
 ```bash
-pi -e ./packages/pi-package/src/index.ts
+pi -e ./packages/pi/src/index.ts
 ```
 
 ## Run
@@ -69,6 +69,6 @@ curl -X POST http://127.0.0.1:8765/ \
 
 This package is set up as a pi package.
 
-- `keywords` includes `pi-package`
+- `keywords` includes `pi`
 - `package.json#pi.extensions` points at `./src/index.ts`
 - pi can install it from a local path, git URL, or npm package once published

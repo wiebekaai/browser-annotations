@@ -3,7 +3,7 @@
   "compilerOptions": {
     "composite": true,
     "lib": ["DOM", "ESNext"],
-    "types": ["bun"]
+    "types": ["node"]
   }
   // "include": ["server.ts"]
 }

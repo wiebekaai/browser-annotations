@@ -6,7 +6,7 @@
   "plugins": [
     {
       "name": "browser-annotations",
-      "source": "./packages/claude-plugin",
+      "source": "./packages/claude",
       "description": "Receive browser annotations directly in your Claude Code session"
     }
   ]

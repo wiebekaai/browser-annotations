@@ -1,5 +1,5 @@
 {
-  "name": "@browser-annotations/pi-package",
+  "name": "@browser-annotations/pi",
   "version": "1.0.1",
   "description": "Send browser annotations to pi",
   "homepage": "https://github.com/wiebekaai/browser-annotations",
@@ -13,8 +13,8 @@
   ],
   "type": "module",
   "scripts": {
-    "dev": "cd ../../ && pi -e ./packages/pi-package/src/index.ts",
-    "check": "bun run check:types",
+    "dev": "cd ../../ && pi -e ./packages/pi/src/index.ts",
+    "check": "pnpm run check:types",
     "check:types": "tsgo -b ./tsconfig.json"
   },
   "devDependencies": {

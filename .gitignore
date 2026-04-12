@@ -3,7 +3,6 @@
 
 # Dev
 node_modules
-.bun
 
 # Artifacts
 build

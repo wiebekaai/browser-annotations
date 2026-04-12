@@ -1,4 +1,4 @@
-# @browser-annotations/claude-plugin
+# @browser-annotations/claude
 
 A Claude Code plugin that listens for browser annotation webhook requests and injects them into the current Claude session.
 
@@ -15,13 +15,13 @@ A Claude Code plugin that listens for browser annotation webhook requests and in
 ### Run the local webhook server
 
 ```bash
-pnpm --filter @browser-annotations/claude-plugin run dev
+pnpm --filter @browser-annotations/claude run dev
 ```
 
 ### Run Claude Code with the development plugin
 
 ```bash
-pnpm --filter @browser-annotations/claude-plugin run dev:claude
+pnpm --filter @browser-annotations/claude run dev:claude
 ```
 
 ## Default webhook URL

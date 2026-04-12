@@ -20,9 +20,9 @@ Install the [Chrome extension](#chrome-extension) and use it with [pi](#pi) or [
 
 ### Chrome extension
 
-1. Install with `pnpm install -g @browser-annotations/chrome-extension`
+1. Install with `pnpm install -g @browser-annotations/chrome`
 2. Open `chrome://extensions` and enable **Developer mode**
-3. Click **Load unpacked** and select `~/browser-annotations/chrome-extension`
+3. Click **Load unpacked** and select `~/browser-annotations/chrome`
 
 ### pi
 
@@ -36,8 +36,8 @@ Claude Code is a mess, but man do I love Opus, so here's how to use it:
 
 1. Start Claude Code with `claude`
 2. Add the marketplace with `/plugin marketplace add wiebekaai/browser-annotations`
-3. Install the plugin with `/plugin install browser-annotations@browser-annotations`
-4. Restart with `claude --dangerously-load-development-channels plugin:browser-annotations@browser-annotations`
+3. Install the plugin with `/plugin install browser-annotations@claude`
+4. Restart with `claude --dangerously-load-development-channels plugin:browser-annotations@claude`
 
 > If the server keeps running after closing Claude Code, run `bunx kill-port 8765`.
 

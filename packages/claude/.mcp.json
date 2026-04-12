@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "browser-annotations": {
+      "command": "pnpm",
+      "args": ["run", "--dir", "${CLAUDE_PLUGIN_ROOT}", "--silent", "start"]
+    }
+  }
+}

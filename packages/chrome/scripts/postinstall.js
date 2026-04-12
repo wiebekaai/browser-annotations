@@ -5,7 +5,7 @@ import { homedir } from "node:os";
 try {
   const distDir = join(import.meta.dirname, "..", "dist");
   const targetDir = join(homedir(), "browser-annotations");
-  const linkPath = join(targetDir, "chrome-extension");
+  const linkPath = join(targetDir, "chrome");
 
   await mkdir(targetDir, { recursive: true });
 

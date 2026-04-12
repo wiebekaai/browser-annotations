@@ -1,0 +1,23 @@
+{
+  "name": "@browser-annotations/claude",
+  "private": true,
+  "description": "Receive browser annotations in Claude Code",
+  "type": "module",
+  "scripts": {
+    "start": "pnpm install --prod && node server.ts",
+    "dev": "node --watch server.ts",
+    "dev:claude": "rm -rf ~/.claude/plugins/cache/browser-annotations && pnpm dlx kill-port ${BROWSER_ANNOTATIONS_PORT:-8765} && cd ../../ && claude --dangerously-skip-permissions --dangerously-load-development-channels plugin:browser-annotations@claude --debug",
+    "check": "pnpm run check:types",
+    "check:types": "tsgo -b ./tsconfig.json"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@typescript/native-preview": "7.0.0-dev.20251207.1"
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}

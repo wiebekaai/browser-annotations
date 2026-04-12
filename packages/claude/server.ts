@@ -1,3 +1,4 @@
+import { createServer } from "node:http";
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { mkdtemp, writeFile } from "node:fs/promises";
@@ -53,15 +54,21 @@ async function processMarkdownScreenshots(markdown: string): Promise<string> {
   return result;
 }
 
-const CORS_HEADERS = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "POST, GET",
-  "Access-Control-Allow-Headers": "Content-Type",
-};
+function setCorsHeaders(res: import("node:http").ServerResponse) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "POST, GET");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+}
+
+async function readBody(req: import("node:http").IncomingMessage): Promise<string> {
+  const chunks: Buffer[] = [];
+  for await (const chunk of req) chunks.push(chunk);
+  return Buffer.concat(chunks).toString();
+}
 
 const mcpServer = new Server(
   {
-    name: "browser-feedback-server",
+    name: "browser-annotations",
     version: "0.0.0",
   },
   {
@@ -72,36 +79,44 @@ const mcpServer = new Server(
 
 await mcpServer.connect(new StdioServerTransport());
 
-const server = Bun.serve({
-  hostname: DEFAULT_HOST,
-  port: Number.isFinite(DEFAULT_PORT) ? DEFAULT_PORT : 8765,
-  async fetch(req) {
-    if (req.method === "GET") {
-      return new Response("OK", { headers: CORS_HEADERS });
+const port = Number.isFinite(DEFAULT_PORT) ? DEFAULT_PORT : 8765;
+
+const server = createServer(async (req, res) => {
+  setCorsHeaders(res);
+
+  if (req.method === "OPTIONS") {
+    res.writeHead(204).end();
+    return;
+  }
+
+  if (req.method === "GET") {
+    res.writeHead(200).end("OK");
+    return;
+  }
+
+  if (req.method === "POST") {
+    const contentType = req.headers["content-type"] || "";
+    const rawBody = await readBody(req);
+
+    let content: string;
+
+    if (contentType.includes("text/markdown")) {
+      content = await processMarkdownScreenshots(rawBody);
+    } else {
+      const body = JSON.parse(rawBody);
+      await saveScreenshots(body);
+      content = JSON.stringify(body);
     }
 
-    if (req.method === "POST") {
-      const contentType = req.headers.get("content-type") || "";
+    await mcpServer.notification({
+      method: "notifications/claude/channel",
+      params: { content, meta: {} },
+    });
+  }
 
-      let content: string;
-
-      if (contentType.includes("text/markdown")) {
-        const markdown = await req.text();
-        content = await processMarkdownScreenshots(markdown);
-      } else {
-        const body = await req.json();
-        await saveScreenshots(body);
-        content = JSON.stringify(body);
-      }
-
-      await mcpServer.notification({
-        method: "notifications/claude/channel",
-        params: { content, meta: {} },
-      });
-    }
-
-    return new Response(null, { headers: CORS_HEADERS });
-  },
+  res.writeHead(200).end();
 });
 
-console.log("Listening on port http://%s:%d", server.hostname, server.port);
+server.listen(port, DEFAULT_HOST, () => {
+  console.log("Listening on http://%s:%d", DEFAULT_HOST, port);
+});

@@ -10,11 +10,11 @@
     "format:fix": "oxfmt .",
     "lint": "oxlint .",
     "lint:fix": "oxlint . --fix",
-    "check:format": "bun run format",
-    "check:lint": "bun run lint",
+    "check:format": "pnpm run format",
+    "check:lint": "pnpm run lint",
     "check:types": "pnpm -r --parallel run check:types",
-    "check": "bun run check:lint && bun run check:format && bun run check:types",
-    "fix": "bun run lint:fix && bun run format:fix && bun run check"
+    "check": "pnpm run check:lint && pnpm run check:format && pnpm run check:types",
+    "fix": "pnpm run lint:fix && pnpm run format:fix && pnpm run check"
   },
   "devDependencies": {
     "oxfmt": "0.42.0",
@@ -23,7 +23,7 @@
   "packageManager": "pnpm@10.18.3",
   "pi": {
     "extensions": [
-      "./packages/pi-package/src/index.ts"
+      "./packages/pi/src/index.ts"
     ]
   }
 }

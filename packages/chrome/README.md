@@ -1,20 +1,16 @@
-# @browser-annotations/chrome-extension
+# @browser-annotations/chrome
 
 Annotate elements and send them to your agents right from your Chrome DevTools.
 
 ## Install
 
 ```bash
-# bun
-bun install -g @browser-annotations/chrome-extension
-
-# or pnpm
-pnpm install -g @browser-annotations/chrome-extension
+pnpm install -g @browser-annotations/chrome
 ```
 
 Open `chrome://extensions`, enable **Developer mode**, click **Load unpacked**, and select:
 
-- `~/browser-annotations/chrome-extension` — created automatically during install
+- `~/browser-annotations/chrome` — created automatically during install
 - or the `dist` folder in your package manager's global directory, if you prefer no symlink
 
 ## Usage
