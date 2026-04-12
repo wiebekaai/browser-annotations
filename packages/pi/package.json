@@ -1,6 +1,6 @@
 {
   "name": "@browser-annotations/pi",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "Send browser annotations to pi",
   "homepage": "https://github.com/wiebekaai/browser-annotations",
   "author": {
@@ -18,7 +18,6 @@
     "check:types": "tsgo -b ./tsconfig.json"
   },
   "devDependencies": {
-    "@browser-annotations/tsconfig": "workspace:*",
     "@mariozechner/pi-coding-agent": "0.66.1",
     "@types/node": "25.5.0",
     "@typescript/native-preview": "catalog:"
