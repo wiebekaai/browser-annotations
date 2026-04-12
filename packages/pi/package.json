@@ -9,9 +9,13 @@
     "chrome",
     "pi-package"
   ],
-  "homepage": "https://browser-annotations.dev/",
+  "homepage": "https://browser-annotations.dev",
   "author": {
     "name": "Wiebe Kaai"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wiebekaai/browser-annotations.git"
   },
   "files": [
     "src",
