@@ -8,6 +8,8 @@ export type Selection = {
   selector: string;
 };
 
+// Stringified and eval'd in the inspected page via chrome.devtools.inspectedWindow.eval.
+// All dependencies must be inlined — external references get mangled by the bundler.
 function getSelectionPayload() {
   type QueryRoot = Document | ShadowRoot;
 

@@ -43,7 +43,9 @@ try {
     console.log(` 3. Click "Load unpacked" and select ${cyan(targetDir)}`);
     console.log(" 4. Set up your agent:");
     console.log(`    - pi: ${cyan("pi install git:github.com/wiebekaai/browser-annotations")}`);
-    console.log(`    - Claude Code: ${cyan("/plugin marketplace add wiebekaai/browser-annotations")} + ${cyan("/plugin install claude@browser-annotations")}`);
+    console.log(
+      `    - Claude Code: ${cyan("/plugin marketplace add wiebekaai/browser-annotations")} + ${cyan("/plugin install claude@browser-annotations")}`,
+    );
   }
 
   console.log("");

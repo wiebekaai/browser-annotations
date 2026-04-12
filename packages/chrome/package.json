@@ -1,6 +1,6 @@
 {
   "name": "browser-annotations",
-  "version": "1.3.0",
+  "version": "1.5.0",
   "description": "Annotate elements and send them to your agents right from your Chrome DevTools.",
   "homepage": "https://browser-annotations.dev",
   "license": "MIT",
