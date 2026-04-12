@@ -10,11 +10,11 @@ Install the [Chrome extension](#chrome-extension) and use it with [pi](#pi) or [
 
 - **Annotate elements** – Select any element and write your feedback
 - **Live agent collaboration** – Send feedback directly to your [pi](#pi) or [Claude Code](#claude-code) session
-- **Capture context** – Captures an elements selector, position, size, viewport, device info, and a screenshot
+- **Complete context** – Includes an element's selector, position, size, viewport, device info, and a screenshot
 - **Source mapping** – Links elements to React and Svelte source code during development
 - **Batch annotations** – Combine feedback across multiple elements and pages
 - **Works everywhere** – Lives in your DevTools, works on any website
-- **Clipboard mode** – Copy annotations as markdown for any workflow
+- **Clipboard mode** – Copy feedback as markdown for any workflow
 
 ## Installation
 
@@ -61,15 +61,33 @@ claude --dangerously-load-development-channels plugin:browser-annotations@browse
 bunx kill-port 8765
 ```
 
-## How it works
+## Usage
 
-1. Select an element in the Chrome DevTools
-2. Write your feedback in the `Feedback` tab
-3. Hit `Submit` to send it to your agent or copy to clipboard
+1. Choose your mode
 
-Use `Add` to batch multiple annotations across elements or pages. Annotations persist per website. Output is formatted as markdown.
+   **a.** **Webhook** — Send feedback directly to your agent. Start your agent's webhook server (see [pi](#pi) or [Claude Code](#claude-code) setup), toggle the webhook dot, and set your agent's URL
 
-You can also copy feedback to your clipboard instead.
+   **b.** **Clipboard** — Copy feedback as markdown
+
+2. Select an element in the Chrome DevTools
+3. Write your feedback in the <img src="docs/feedback-tab.png" alt="Feedback tab" height="20" /> tab (drag this tab to the left so it's easily accessible)
+4. Use <img src="docs/icon-add.svg" alt="Add" /> to batch annotations. Annotations persist per website, so your feedback can span multiple pages
+5. Hit <img src="docs/icon-send.svg" alt="Send" /> to send to your agent, or <img src="docs/icon-copy.svg" alt="Copy" /> to copy as markdown
+
+You can always copy to clipboard with keyboard shortcuts, even with webhook enabled.
+
+### Keyboard shortcuts
+
+| Action              | Shortcut                                              |
+| ------------------- | ----------------------------------------------------- |
+| Inspect element     | <kbd><kbd>⌘</kbd> <kbd>⌥</kbd> <kbd>C</kbd></kbd>     |
+| Add                 | <kbd><kbd>⌘</kbd> <kbd>Enter</kbd></kbd>              |
+| Submit              | <kbd><kbd>⌘</kbd> <kbd>⇧</kbd> <kbd>Enter</kbd></kbd> |
+| Copy current        | <kbd><kbd>⌘</kbd> <kbd>X</kbd></kbd>                  |
+| Copy all            | <kbd><kbd>⌘</kbd> <kbd>⇧</kbd> <kbd>X</kbd></kbd>     |
+| Clear current       | <kbd><kbd>⌘</kbd> <kbd>K</kbd></kbd>                  |
+| Clear all           | <kbd><kbd>⌘</kbd> <kbd>⇧</kbd> <kbd>K</kbd></kbd>     |
+| Cancel / Reset      | <kbd>Esc</kbd>                                        |
 
 ### Example output
 

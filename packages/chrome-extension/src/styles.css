@@ -1,11 +1,14 @@
 @import "tailwindcss";
 
 @theme {
-  --font-mono: "SF Mono", "Menlo", "Consolas", monospace;
+  --font-mono: "Berkeley Mono", "SF Mono", "Menlo", monospace;
   --text-2xs: 0.625rem;
-  --color-blue: var(--color-blue-500);
-  --color-focus: var(--color-blue-400);
-  --color-panel: var(--color-neutral-900);
+  --color-foreground: #ffffff;
+  --color-accent: var(--color-violet-400);
+  --color-focus: var(--color-sky-300);
+  --color-panel: #0e0e12;
+  --color-success: var(--color-teal-400);
+  --color-danger: var(--color-rose-400);
   --ease-out-quint: cubic-bezier(0.23, 1, 0.32, 1);
 }
 

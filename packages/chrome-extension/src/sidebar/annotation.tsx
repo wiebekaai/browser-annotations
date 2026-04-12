@@ -1,8 +1,20 @@
+import type { JSX, ParentComponent } from "solid-js";
 import { Show } from "solid-js";
 import { cn } from "~/sidebar/utils";
 import { truncateSelector } from "~/sidebar/utils";
 import { CrosshairSimpleIcon, MinusIcon, PlusIcon, XIcon } from "~/sidebar/icons";
 import type { Annotation as AnnotationType } from "~/sidebar/annotations";
+
+const ActionButton: ParentComponent<JSX.ButtonHTMLAttributes<HTMLButtonElement>> = (props) => (
+  <button
+    type="button"
+    {...props}
+    class={cn(
+      "pointer-events-none absolute top-2 right-2 ml-auto text-2xs text-foreground/80 opacity-0 group-hover/annotation:pointer-events-auto group-hover/annotation:opacity-100 hover:text-foreground focus-visible:pointer-events-auto focus-visible:opacity-100",
+      props.class,
+    )}
+  />
+);
 
 export const Annotation = (props: {
   annotation: AnnotationType;
@@ -15,9 +27,9 @@ export const Annotation = (props: {
   <li>
     <article
       class={cn(
-        "group/annotation relative w-full bg-white/2 p-2 pl-3",
+        "group/annotation relative w-full bg-foreground/2 p-2 pl-3",
         "before:absolute before:inset-y-0 before:left-0 before:w-0.5 before:transition-[background-color] before:duration-150 before:content-['']",
-        props.isInBatch ? "before:bg-blue" : "before:bg-white/20",
+        props.isInBatch ? "before:bg-accent" : "before:bg-foreground/20",
       )}
     >
       <p class="pr-5 whitespace-pre-wrap">{props.annotation.comment}</p>
@@ -25,44 +37,23 @@ export const Annotation = (props: {
         <Show
           when={props.isBatching}
           fallback={
-            <button
-              type="button"
-              aria-label="Discard annotation"
-              class={
-                "pointer-events-none absolute top-2 right-2 ml-auto text-2xs text-white/80 opacity-0 group-hover/annotation:pointer-events-auto group-hover/annotation:opacity-100 hover:text-white focus-visible:pointer-events-auto focus-visible:opacity-100"
-              }
-              onClick={props.onRemove}
-            >
+            <ActionButton aria-label="Discard annotation" onClick={props.onRemove}>
               <XIcon class="size-3" />
-            </button>
+            </ActionButton>
           }
         >
           <Show when={props.isInBatch}>
-            <button
-              type="button"
-              aria-label="Exclude annotation"
-              class={
-                "pointer-events-none absolute top-2 right-2 ml-auto text-2xs text-white/80 opacity-0 group-hover/annotation:pointer-events-auto group-hover/annotation:opacity-100 hover:text-white focus-visible:pointer-events-auto focus-visible:opacity-100"
-              }
-              onClick={props.onExclude}
-            >
+            <ActionButton aria-label="Exclude annotation" onClick={props.onExclude}>
               <MinusIcon class="size-3" />
-            </button>
+            </ActionButton>
           </Show>
           <Show when={!props.isInBatch}>
-            <button
-              type="button"
-              aria-label="Include annotation"
-              class={
-                "pointer-events-none absolute top-2 right-2 ml-auto text-2xs text-white/80 opacity-0 group-hover/annotation:pointer-events-auto group-hover/annotation:opacity-100 hover:text-white focus-visible:pointer-events-auto focus-visible:opacity-100"
-              }
-              onClick={props.onInclude}
-            >
+            <ActionButton aria-label="Include annotation" onClick={props.onInclude}>
               <PlusIcon class="size-3" />
-            </button>
+            </ActionButton>
           </Show>
         </Show>
-        <span class="flex cursor-default items-center gap-1 text-2xs text-white/80">
+        <span class="flex cursor-default items-center gap-1 text-2xs text-foreground/80">
           <CrosshairSimpleIcon class="size-3 shrink-0" />
           {truncateSelector(props.annotation.target.selector)}
         </span>

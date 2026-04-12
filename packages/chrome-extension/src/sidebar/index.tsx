@@ -15,7 +15,7 @@ import {
 import { cn, copyToClipboard } from "~/sidebar/utils";
 import { captureCroppedScreenshot } from "~/sidebar/screenshot";
 import { createSelectionContext } from "~/sidebar/selection-context";
-import { SubmitButton, Tooltip } from "~/sidebar/components";
+import { Kbd, SubmitButton, Tooltip } from "~/sidebar/components";
 import { createSelection } from "~/sidebar/selection";
 import { formatHref, truncateSelector } from "~/sidebar/utils";
 import { createAnnotation } from "~/sidebar/annotations";
@@ -127,27 +127,74 @@ const Sidebar = () => {
     stopBatching();
   };
 
-  const handleCopy = async () => {
-    const currentComment = comment();
+  const requireSelectionAndContext = async () => {
     const currentSelection = selection();
-
     if (!currentSelection) {
       flashFormError("Select an element");
-      return;
+      return null;
     }
-
     const context = await loadSelectionContext();
+    if (!context) return null;
+    return { selection: currentSelection, context };
+  };
 
-    if (!context) {
-      return;
+  const sendToWebhook = async (body: string): Promise<boolean> => {
+    setIsSubmitting(true);
+    try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 5000);
+      try {
+        const response = await fetch(webhookUrl(), {
+          method: "POST",
+          headers: { "Content-Type": "text/markdown" },
+          body,
+          signal: controller.signal,
+        });
+        if (!response.ok) {
+          flashWebhookError("Could not reach webhook");
+          return false;
+        }
+      } finally {
+        clearTimeout(timeout);
+      }
+    } catch {
+      flashWebhookError("Could not reach webhook");
+      return false;
+    } finally {
+      setIsSubmitting(false);
+      refs.commentInput.focus();
     }
+    setWebhookError(null);
+    setWebhookFailed(false);
+    return true;
+  };
+
+  const flashSubmittedAndCleanBatch = (annotationIds: string[]) => {
+    clearTimeout(hasSubmittedTimeout);
+    setHasSubmitted(true);
+    hasSubmittedTimeout = setTimeout(() => {
+      batch(() => {
+        setHasSubmitted(false);
+        setAnnotations((annotations) => {
+          const ids = new Set(annotationIds);
+          return annotations.filter(({ id }) => !ids.has(id));
+        });
+        stopBatching();
+      });
+      refs.form.reset();
+    }, 2000);
+  };
+
+  const handleCopy = async () => {
+    const required = await requireSelectionAndContext();
+    if (!required) return;
 
     const success = await copyToClipboard(
       toMd(
         createAnnotation({
-          comment: currentComment || undefined,
-          selection: currentSelection,
-          context,
+          comment: comment() || undefined,
+          selection: required.selection,
+          context: required.context,
         }),
         { includeScreenshot: false },
       ),
@@ -204,64 +251,25 @@ const Sidebar = () => {
           return;
         }
 
-        const currentSelection = selection();
-
-        if (!currentSelection) {
-          flashFormError("Select an element");
-          return;
-        }
-
-        const currentSelectionContext = await loadSelectionContext();
-
-        if (!currentSelectionContext) {
-          return;
-        }
+        const required = await requireSelectionAndContext();
+        if (!required) return;
 
         const sendScreenshot = await captureCroppedScreenshot(
-          currentSelectionContext.boundingBox,
-          currentSelectionContext.page.devicePixelRatio,
+          required.context.boundingBox,
+          required.context.page.devicePixelRatio,
         );
 
         const sendBody = toMd(
           createAnnotation({
             comment: currentComment,
             screenshot: sendScreenshot || undefined,
-            selection: currentSelection,
-            context: currentSelectionContext,
+            selection: required.selection,
+            context: required.context,
           }),
         );
 
-        setIsSubmitting(true);
+        if (!(await sendToWebhook(sendBody))) return;
 
-        try {
-          const controller = new AbortController();
-          const timeout = setTimeout(() => controller.abort(), 5000);
-
-          try {
-            const sendResponse = await fetch(webhookUrl(), {
-              method: "POST",
-              headers: { "Content-Type": "text/markdown" },
-              body: sendBody,
-              signal: controller.signal,
-            });
-
-            if (!sendResponse.ok) {
-              flashWebhookError("Could not reach webhook");
-              return;
-            }
-          } finally {
-            clearTimeout(timeout);
-          }
-        } catch {
-          flashWebhookError("Could not reach webhook");
-          return;
-        } finally {
-          setIsSubmitting(false);
-          refs.commentInput.focus();
-        }
-
-        setWebhookError(null);
-        setWebhookFailed(false);
         setHasSubmitted(true);
         hasSubmittedTimeout = setTimeout(() => setHasSubmitted(false), 2000);
         refs.form.reset();
@@ -273,25 +281,15 @@ const Sidebar = () => {
           return;
         }
 
-        const currentSelection = selection();
-
-        if (!currentSelection) {
-          flashFormError("Select an element");
-          return;
-        }
-
-        const currentSelectionContext = await loadSelectionContext();
-
-        if (!currentSelectionContext) {
-          return;
-        }
+        const required = await requireSelectionAndContext();
+        if (!required) return;
 
         await copyToClipboard(
           toMd(
             createAnnotation({
               comment: currentComment,
-              selection: currentSelection,
-              context: currentSelectionContext,
+              selection: required.selection,
+              context: required.context,
             }),
             { includeScreenshot: false },
           ),
@@ -304,67 +302,20 @@ const Sidebar = () => {
       }
       case "sendBatch": {
         const annotationIds = [...batchAnnotationIds()];
-
-        if (!annotationIds.length) {
-          return;
-        }
+        if (!annotationIds.length) return;
 
         const sendBatchBody = toBatchMd(batchAnnotations(), {
           comment: currentComment,
         });
 
-        setIsSubmitting(true);
+        if (!(await sendToWebhook(sendBatchBody))) return;
 
-        try {
-          const controller = new AbortController();
-          const timeout = setTimeout(() => controller.abort(), 5000);
-
-          try {
-            const sendBatchResponse = await fetch(webhookUrl(), {
-              method: "POST",
-              headers: { "Content-Type": "text/markdown" },
-              body: sendBatchBody,
-              signal: controller.signal,
-            });
-
-            if (!sendBatchResponse.ok) {
-              flashWebhookError("Could not reach webhook");
-              return;
-            }
-          } finally {
-            clearTimeout(timeout);
-          }
-        } catch {
-          flashWebhookError("Could not reach webhook");
-          return;
-        } finally {
-          setIsSubmitting(false);
-          refs.commentInput.focus();
-        }
-
-        setWebhookError(null);
-        setWebhookFailed(false);
-        clearTimeout(hasSubmittedTimeout);
-        setHasSubmitted(true);
-        hasSubmittedTimeout = setTimeout(() => {
-          batch(() => {
-            setHasSubmitted(false);
-            setAnnotations((annotations) => {
-              const ids = new Set(annotationIds);
-              return annotations.filter(({ id }) => !ids.has(id));
-            });
-            stopBatching();
-          });
-          refs.form.reset();
-        }, 2000);
+        flashSubmittedAndCleanBatch(annotationIds);
         break;
       }
       case "copyBatch": {
         const annotationIds = [...batchAnnotationIds()];
-
-        if (!annotationIds.length) {
-          return;
-        }
+        if (!annotationIds.length) return;
 
         await copyToClipboard(
           toBatchMd(batchAnnotations(), {
@@ -373,48 +324,26 @@ const Sidebar = () => {
           }),
         );
 
-        clearTimeout(hasSubmittedTimeout);
-        setHasSubmitted(true);
-        hasSubmittedTimeout = setTimeout(() => {
-          batch(() => {
-            setHasSubmitted(false);
-            setAnnotations((annotations) => {
-              const ids = new Set(annotationIds);
-              return annotations.filter(({ id }) => !ids.has(id));
-            });
-            stopBatching();
-          });
-          refs.form.reset();
-        }, 2000);
+        flashSubmittedAndCleanBatch(annotationIds);
         break;
       }
       case "add":
       default: {
-        const currentSelection = selection();
-
-        if (!currentSelection) {
-          flashFormError("Select an element");
-          return;
-        }
-
-        const currentSelectionContext = await loadSelectionContext();
-
-        if (!currentSelectionContext) {
-          return;
-        }
+        const required = await requireSelectionAndContext();
+        if (!required) return;
 
         const annotation = createAnnotation({
           comment: currentComment,
-          selection: currentSelection,
-          context: currentSelectionContext,
+          selection: required.selection,
+          context: required.context,
         });
 
         setAnnotations((v) => [...v, annotation]);
 
         if (webhookEnabled()) {
           captureCroppedScreenshot(
-            currentSelectionContext.boundingBox,
-            currentSelectionContext.page.devicePixelRatio,
+            required.context.boundingBox,
+            required.context.page.devicePixelRatio,
           ).then((screenshot) => {
             if (!screenshot) return;
             setAnnotations((v) =>
@@ -521,12 +450,15 @@ const Sidebar = () => {
       onPointerDown={clearErrors}
       onKeyDown={clearErrors}
       class={cn(
-        "absolute inset-0 flex flex-col overflow-auto bg-white font-mono text-zinc-950 antialiased dark:bg-panel dark:text-white",
+        "absolute inset-0 flex flex-col overflow-auto bg-white font-mono text-zinc-950 antialiased dark:bg-panel dark:text-foreground",
         loading() && "cursor-wait",
       )}
     >
       {/* Toolbar */}
-      <div inert={loading() || undefined} class="flex h-8 border-b border-b-white/7 pl-1 text-2xs">
+      <div
+        inert={loading() || undefined}
+        class="flex h-8 border-b border-b-foreground/7 pl-1 text-2xs"
+      >
         <div class="flex items-center gap-1">
           <div class="relative flex h-8 items-center justify-center">
             <button
@@ -543,10 +475,10 @@ const Sidebar = () => {
                 class={cn(
                   "block size-1.5 rounded-full transition-[background-color] duration-150",
                   webhookFailed()
-                    ? "bg-red-500 group-hover:bg-red-500/80"
+                    ? "bg-danger group-hover:bg-danger/80"
                     : webhookEnabled()
-                      ? "bg-green-500 group-hover:bg-green-500/80"
-                      : "bg-white/50 group-hover:bg-white/80",
+                      ? "bg-success group-hover:bg-success/80"
+                      : "bg-foreground/50 group-hover:bg-foreground/80",
                 )}
               ></span>
             </button>
@@ -566,7 +498,7 @@ const Sidebar = () => {
                   <button
                     type="button"
                     aria-label="Change Webhook URL"
-                    class="peer flex max-w-48 items-center truncate text-white/80 [anchor-name:--webhook-url] hover:text-white"
+                    class="peer flex max-w-48 items-center truncate text-foreground/80 [anchor-name:--webhook-url] hover:text-foreground"
                     onClick={() => {
                       setIsEditingWebhook(true);
                       // SolidJS batches DOM updates — the input isn't mounted yet
@@ -611,7 +543,11 @@ const Sidebar = () => {
                   type="url"
                   name="url"
                 />
-                <button type="submit" class="text-white/80 hover:text-white" aria-label="Save">
+                <button
+                  type="submit"
+                  class="text-foreground/80 hover:text-foreground"
+                  aria-label="Save"
+                >
                   <CheckIcon class="size-3.25" />
                 </button>
               </form>
@@ -626,7 +562,7 @@ const Sidebar = () => {
                 aria-label="Copy annotations"
                 onClick={() => handleCopyAll()}
                 data-copied={hasCopiedAll() ? "" : undefined}
-                class="group peer flex size-8 items-center justify-center text-white/80 transition-[scale] duration-150 hover:text-white active:scale-[0.95]"
+                class="group peer flex size-8 items-center justify-center text-foreground/80 transition-[scale] duration-150 hover:text-foreground active:scale-[0.95]"
               >
                 <CopyIcon
                   class={cn(
@@ -647,23 +583,17 @@ const Sidebar = () => {
                 <div class="flex flex-col gap-0.5">
                   <span class="inline-flex items-center gap-1">
                     Copy all
-                    <kbd
-                      aria-label="Command Shift X"
-                      class="font-inherit inline-flex items-center gap-0.5 text-white/50"
-                    >
+                    <Kbd aria-label="Command Shift X">
                       <CommandIcon class="size-2.5" /> <ArrowFatUpIcon class="size-2.5" />
                       <span aria-hidden="true">X</span>
-                    </kbd>
+                    </Kbd>
                   </span>
-                  <span class="inline-flex items-center gap-1 text-white/50">
+                  <span class="inline-flex items-center gap-1 text-foreground/50">
                     Or current
-                    <kbd
-                      aria-label="Command X"
-                      class="font-inherit inline-flex items-center gap-0.5"
-                    >
+                    <Kbd aria-label="Command X">
                       <CommandIcon class="size-2.5" />
                       <span aria-hidden="true">X</span>
-                    </kbd>
+                    </Kbd>
                   </span>
                 </div>
               </Tooltip>
@@ -674,7 +604,7 @@ const Sidebar = () => {
               type="button"
               aria-label="Clear annotations"
               onClick={handleClearAll}
-              class="group peer flex size-8 items-center justify-center text-white/80 transition-[scale] duration-150 hover:text-white active:scale-[0.95]"
+              class="group peer flex size-8 items-center justify-center text-foreground/80 transition-[scale] duration-150 hover:text-foreground active:scale-[0.95]"
             >
               <TrashIcon class={cn("size-3.25")} />
             </button>
@@ -682,20 +612,17 @@ const Sidebar = () => {
               <div class="flex flex-col gap-0.5">
                 <span class="inline-flex items-center gap-1">
                   Clear all
-                  <kbd
-                    aria-label="Command Shift K"
-                    class="font-inherit inline-flex items-center gap-0.5 text-white/50"
-                  >
+                  <Kbd aria-label="Command Shift K">
                     <CommandIcon class="size-2.5" /> <ArrowFatUpIcon class="size-2.5" />
                     <span aria-hidden="true">K</span>
-                  </kbd>
+                  </Kbd>
                 </span>
-                <span class="inline-flex items-center gap-1 text-white/50">
+                <span class="inline-flex items-center gap-1 text-foreground/50">
                   Or current
-                  <kbd aria-label="Command K" class="font-inherit inline-flex items-center gap-0.5">
+                  <Kbd aria-label="Command K">
                     <CommandIcon class="size-2.5" />
                     <span aria-hidden="true">K</span>
-                  </kbd>
+                  </Kbd>
                 </span>
               </div>
             </Tooltip>
@@ -733,7 +660,7 @@ const Sidebar = () => {
       </div>
 
       {/* Form */}
-      <div class="border-t border-t-white/7">
+      <div class="border-t border-t-foreground/7">
         <form class="p-2" onSubmit={handleSubmit} ref={(e) => (refs.form = e)}>
           <div class="relative">
             <textarea
@@ -741,14 +668,14 @@ const Sidebar = () => {
               name="comment"
               required={!isBatching()}
               readonly={loading() || undefined}
-              class="flex field-sizing-content max-h-[4rlh] min-h-[2.5rlh] w-full resize-none rounded-sm border border-white/5 bg-white/2.5 p-2 hover:bg-white/4"
+              class="flex field-sizing-content max-h-[4rlh] min-h-[2.5rlh] w-full resize-none rounded-sm border border-foreground/5 bg-foreground/2.5 p-2 text-xs hover:bg-foreground/4"
               placeholder={isBatching() ? "Care to elaborate? (optional)" : "What would you like?"}
             ></textarea>
           </div>
           <div class="mt-2 flex items-start gap-2">
             <div class="flex min-w-0 flex-col gap-1">
               <Show when={isBatching() && !hasSubmitted()}>
-                <span class="block text-2xs text-white/80">
+                <span class="block text-2xs text-foreground/80">
                   {batchAnnotationIds().length
                     ? `${webhookEnabled() ? "Sending" : "Copying"} ${batchAnnotationIds().length} annotation${batchAnnotationIds().length > 1 ? "s" : ""}`
                     : "No annotations selected"}
@@ -757,13 +684,15 @@ const Sidebar = () => {
               <Show when={!isBatching() && !hasSubmitted()}>
                 <Show
                   when={selection()}
-                  fallback={<span class="block text-2xs text-white/80">{"Select an element"}</span>}
+                  fallback={
+                    <span class="block text-2xs text-foreground/80">{"Select an element"}</span>
+                  }
                 >
                   {(selection) => (
                     <div class="flex h-fit items-center gap-1">
                       <span
                         tabindex="0"
-                        class="peer flex cursor-default items-center gap-1 text-2xs text-white/80 select-none [anchor-name:--selector]"
+                        class="peer flex cursor-default items-center gap-1 text-2xs text-foreground/80 select-none [anchor-name:--selector]"
                         onMouseEnter={loadSelectionContext}
                         onFocus={loadSelectionContext}
                       >
@@ -805,7 +734,7 @@ const Sidebar = () => {
                         name="intent"
                         value="add"
                         aria-label="Add"
-                        class="flex size-8 items-center justify-center rounded-sm bg-white/5 text-white transition-[scale] duration-150 active:scale-[0.935]"
+                        class="flex size-8 items-center justify-center rounded-sm bg-foreground/5 text-foreground transition-[scale] duration-150 active:scale-[0.935]"
                       >
                         <PlusIcon class="size-3.5" />
                       </button>
@@ -813,12 +742,9 @@ const Sidebar = () => {
                     <Tooltip anchor="--add-button" position="top">
                       <span class="inline-flex items-center gap-1">
                         Add
-                        <kbd
-                          aria-label="Command Enter"
-                          class="font-inherit inline-flex items-center gap-0.5 text-white/50"
-                        >
+                        <Kbd aria-label="Command Enter">
                           <CommandIcon class="size-2.5" /> <span aria-hidden="true">Enter</span>
-                        </kbd>
+                        </Kbd>
                       </span>
                     </Tooltip>
                   </div>
@@ -829,7 +755,7 @@ const Sidebar = () => {
                     <button
                       type="button"
                       onClick={stopBatching}
-                      class="flex h-8 items-center justify-center rounded-sm px-2 text-2xs text-white/80 transition-[scale,color] duration-150 hover:text-white active:scale-[0.9625]"
+                      class="flex h-8 items-center justify-center rounded-sm px-2 text-2xs text-foreground/80 transition-[scale,color] duration-150 hover:text-foreground active:scale-[0.9625]"
                     >
                       Cancel
                     </button>
@@ -837,9 +763,9 @@ const Sidebar = () => {
                   <Tooltip anchor="--cancel-submit-button" position="top">
                     <span class="inline-flex items-center gap-1">
                       Cancel
-                      <kbd aria-label="Escape" class="font-inherit text-white/50">
+                      <Kbd aria-label="Escape">
                         <span aria-hidden="true">Esc</span>
-                      </kbd>
+                      </Kbd>
                     </span>
                   </Tooltip>
                 </div>
@@ -887,21 +813,18 @@ const Sidebar = () => {
                 <Tooltip anchor="--submit-button" position="top" class="mr-1">
                   <span class="inline-flex items-center gap-1">
                     {submitLabel()}
-                    <kbd
-                      aria-label="Command Shift Enter"
-                      class="font-inherit inline-flex items-center gap-0.5 text-white/50"
-                    >
+                    <Kbd aria-label="Command Shift Enter">
                       <CommandIcon class="size-2.5" /> <ArrowFatUpIcon class="size-2.5" />
                       <span aria-hidden="true">Enter</span>
-                    </kbd>
+                    </Kbd>
                   </span>
                 </Tooltip>
               </div>
             </div>
           </div>
           <Show when={webhookError() || formError()}>
-            <div class="mt-2 ml-auto flex w-fit items-center gap-1 text-2xs text-white">
-              <WarningCircleIcon class="size-3 shrink-0 text-red-500" />
+            <div class="mt-2 ml-auto flex w-fit items-center gap-1 text-2xs text-foreground">
+              <WarningCircleIcon class="size-3 shrink-0 text-danger" />
               {webhookError() || formError()}
             </div>
           </Show>
