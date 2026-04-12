@@ -24,22 +24,24 @@ Install the [Chrome extension](#chrome-extension) and use it with [pi](#pi) or [
 2. Open `chrome://extensions` and enable **Developer mode**
 3. Click **Load unpacked** and select `~/browser-annotations/chrome`
 
+> Update with `pnpm update -g @browser-annotations/chrome`, then reload on `chrome://extensions`.
+
 ### pi
 
 1. Install with `pi install git:github.com/wiebekaai/browser-annotations`
 2. Start pi with `pi`
 3. Run `/browser-annotations`
 
-### Claude Code
+> Update with `pi update`.
 
-Claude Code is a mess, but man do I love Opus, so here's how to use it:
+### Claude Code
 
 1. Start Claude Code with `claude`
 2. Add the marketplace with `/plugin marketplace add wiebekaai/browser-annotations`
 3. Install the plugin with `/plugin install browser-annotations@claude`
 4. Restart with `claude --dangerously-load-development-channels plugin:browser-annotations@claude`
 
-> If the server keeps running after closing Claude Code, run `bunx kill-port 8765`.
+> Update with `/plugin update claude@browser-annotations`.
 
 ## Usage
 

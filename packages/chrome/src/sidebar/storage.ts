@@ -10,7 +10,7 @@ type PersistedState = {
 
 const storageKey = (origin: string) => `feedback:${origin}`;
 
-const DEFAULT_WEBHOOK_URL = "http://127.0.0.1:8765/";
+const DEFAULT_WEBHOOK_URL = "http://127.0.0.1:3330/";
 
 export async function loadState(origin: string) {
   const key = storageKey(origin);
