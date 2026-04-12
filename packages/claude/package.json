@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "rm -rf ~/.claude/plugins/cache/browser-annotations && cd ../../ && claude --dangerously-skip-permissions --dangerously-load-development-channels plugin:claude@browser-annotations --debug",
-    "start": "pnpm install --prod; node src/index.ts",
+    "start": "bun install --production && bun src/index.ts",
     "check": "pnpm run check:types",
     "check:types": "tsgo -b ./tsconfig.json"
   },
@@ -13,7 +13,7 @@
     "@modelcontextprotocol/sdk": "^1.29.0"
   },
   "devDependencies": {
-    "@browser-annotations/tsconfig": "workspace:*",
+    "@browser-annotations/tsconfig": "../tsconfig",
     "@types/node": "^22.0.0",
     "@typescript/native-preview": "7.0.0-dev.20251207.1"
   },
