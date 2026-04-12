@@ -1,11 +1,11 @@
 {
   "name": "browser-annotations",
   "owner": {
-    "name": "Wiebe"
+    "name": "Wiebe Kaai"
   },
   "plugins": [
     {
-      "name": "browser-annotations",
+      "name": "claude",
       "source": "./packages/claude",
       "description": "Receive browser annotations directly in your Claude Code session"
     }

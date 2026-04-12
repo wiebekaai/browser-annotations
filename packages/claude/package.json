@@ -4,9 +4,9 @@
   "description": "Receive browser annotations in Claude Code",
   "type": "module",
   "scripts": {
-    "start": "pnpm install --prod && node server.ts",
-    "dev": "node --watch server.ts",
-    "dev:claude": "rm -rf ~/.claude/plugins/cache/browser-annotations && pnpm dlx kill-port ${BROWSER_ANNOTATIONS_PORT:-8765} && cd ../../ && claude --dangerously-skip-permissions --dangerously-load-development-channels plugin:browser-annotations@claude --debug",
+    "start": "pnpm install --prod --force && node src/index.ts",
+    "dev": "node --watch src/index.ts",
+    "dev:claude": "rm -rf ~/.claude/plugins/cache/browser-annotations && cd ../../ && claude --dangerously-skip-permissions --dangerously-load-development-channels plugin:claude@browser-annotations --debug",
     "check": "pnpm run check:types",
     "check:types": "tsgo -b ./tsconfig.json"
   },
@@ -14,6 +14,7 @@
     "@modelcontextprotocol/sdk": "^1.29.0"
   },
   "devDependencies": {
+    "@browser-annotations/tsconfig": "workspace:*",
     "@types/node": "^22.0.0",
     "@typescript/native-preview": "7.0.0-dev.20251207.1"
   },
