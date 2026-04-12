@@ -668,6 +668,7 @@ const Sidebar = () => {
               name="comment"
               required={!isBatching()}
               readonly={loading() || undefined}
+              title=""
               class="flex field-sizing-content max-h-[4rlh] min-h-[2.5rlh] w-full resize-none rounded-sm border border-foreground/5 bg-foreground/2.5 p-2 text-xs hover:bg-foreground/4"
               placeholder={isBatching() ? "Care to elaborate? (optional)" : "What would you like?"}
             ></textarea>
