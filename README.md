@@ -24,7 +24,7 @@ Install the [Chrome extension](#chrome-extension) and use it with [pi](#pi) or [
 2. Open `chrome://extensions` and enable **Developer mode**
 3. Click **Load unpacked** and select `~/browser-annotations/chrome`
 
-> Update with `pnpm update -g @browser-annotations/chrome`, then reload on `chrome://extensions`.
+**Updates:** `pnpm update -g @browser-annotations/chrome`, then reload on `chrome://extensions`.
 
 ### pi
 
@@ -32,16 +32,16 @@ Install the [Chrome extension](#chrome-extension) and use it with [pi](#pi) or [
 2. Start pi with `pi`
 3. Run `/browser-annotations`
 
-> Update with `pi update`.
+**Updates:** `pi update`.
 
 ### Claude Code
 
 1. Start Claude Code with `claude`
 2. Add the marketplace with `/plugin marketplace add wiebekaai/browser-annotations`
-3. Install the plugin with `/plugin install browser-annotations@claude`
-4. Restart with `claude --dangerously-load-development-channels plugin:browser-annotations@claude`
+3. Install the plugin with `/plugin install claude@browser-annotations`
+4. Restart with `claude --dangerously-load-development-channels plugin:claude@browser-annotations`
 
-> Update with `/plugin update claude@browser-annotations`.
+**Updates:** `/plugin update claude@browser-annotations`.
 
 ## Usage
 
@@ -53,7 +53,8 @@ Install the [Chrome extension](#chrome-extension) and use it with [pi](#pi) or [
 4. Use <img src="docs/icon-add.svg" alt="Add" /> to batch annotations. Annotations persist per website, so your feedback can span multiple pages
 5. Hit <img src="docs/icon-send.svg" alt="Send" /> to send to your agent, or <img src="docs/icon-copy.svg" alt="Copy" /> to copy as markdown
 
-> You can always copy to clipboard with keyboard shortcuts, even with webhook enabled.
+> [!TIP]
+> Even when using a webhook, <kbd><kbd>⌘</kbd> <kbd>X</kbd></kbd> / <kbd><kbd>⌘</kbd> <kbd>⇧</kbd> <kbd>X</kbd></kbd> copies to clipboard. Handy for quick sharing.
 
 ### Keyboard shortcuts
 
