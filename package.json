@@ -1,6 +1,6 @@
 {
   "name": "@browser-annotations/workspace",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "private": true,
   "keywords": [
     "browser-annotations"
@@ -14,7 +14,8 @@
     "check:lint": "pnpm run lint",
     "check:types": "pnpm -r --parallel run check:types",
     "check": "pnpm run check:lint && pnpm run check:format && pnpm run check:types",
-    "fix": "pnpm run lint:fix && pnpm run format:fix && pnpm run check"
+    "fix": "pnpm run lint:fix && pnpm run format:fix && pnpm run check",
+    "version": "bash scripts/version.sh"
   },
   "devDependencies": {
     "oxfmt": "0.42.0",

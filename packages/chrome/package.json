@@ -1,6 +1,6 @@
 {
   "name": "@browser-annotations/chrome",
-  "version": "0.2.0",
+  "version": "1.0.3",
   "description": "Annotate elements and send them to your agents right from your Chrome DevTools.",
   "homepage": "https://browser-annotations.dev/",
   "license": "MIT",
@@ -17,7 +17,7 @@
     "check:types": "tsgo -b ./tsconfig.json",
     "dev": "vite",
     "prepack": "vite build",
-    "publish": "npm publish --access public",
+    "release": "npm publish --access public",
     "postinstall": "node scripts/postinstall.js"
   },
   "dependencies": {

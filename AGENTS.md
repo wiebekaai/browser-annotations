@@ -1,4 +1,5 @@
 - Run `pnpm run fix` before every commit
+- All packages share one version. Bump with `pnpm run version <x.y.z>` — it updates root, chrome, pi, and the claude plugin manifest
 - Prioritize pragmatism and ease of understanding over abstractions or unneeded optmizations:
   - Colocate code where it's used
   - Infer and combine types instead of introducing new ones
