@@ -20,11 +20,11 @@ Install the [Chrome extension](#chrome-extension) and use it with [pi](#pi) or [
 
 ### Chrome extension
 
-1. Install with `pnpm install -g @browser-annotations/chrome`
+1. Install with `pnpm install -g browser-annotations`
 2. Open `chrome://extensions` and enable **Developer mode**
 3. Click **Load unpacked** and select `~/browser-annotations/chrome`
 
-**Updates:** Run `pnpm update -g @browser-annotations/chrome` and reload the extension in `chrome://extensions`
+**Updates:** Run `pnpm update -g browser-annotations` and reload the extension in `chrome://extensions`
 
 ### pi
 
