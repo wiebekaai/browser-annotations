@@ -22,7 +22,7 @@ Install the [Chrome extension](#chrome-extension) and use it with [pi](#pi) or [
 
 1. Install with `pnpm install -g browser-annotations`
 2. Open `chrome://extensions` and enable **Developer mode**
-3. Click **Load unpacked** and select `~/browser-annotations/chrome`
+3. Click **Load unpacked** and select `~/browser-annotations/chrome-extension`
 
 **Updates:** Run `pnpm update -g browser-annotations` and reload the extension in `chrome://extensions`
 

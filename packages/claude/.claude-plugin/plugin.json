@@ -6,9 +6,5 @@
     "name": "Wiebe Kaai"
   },
   "homepage": "https://github.com/wiebekaai/browser-annotations",
-  "keywords": [
-    "browser-annotations",
-    "channel",
-    "mcp"
-  ]
+  "keywords": ["browser-annotations", "channel", "mcp"]
 }
