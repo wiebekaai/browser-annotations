@@ -64,30 +64,27 @@ bunx kill-port 8765
 ## Usage
 
 1. Choose your mode
-
-   **a.** **Webhook** — Send feedback directly to your agent. Start your agent's webhook server (see [pi](#pi) or [Claude Code](#claude-code) setup), toggle the webhook dot, and set your agent's URL
-
-   **b.** **Clipboard** — Copy feedback as markdown
-
+   - **Webhook on** — Send feedback directly to your agent (see [pi](#pi) or [Claude Code](#claude-code) setup)
+   - **Webhook off** — Copy feedback as markdown to your clipboard
 2. Select an element in the Chrome DevTools
 3. Write your feedback in the <img src="docs/feedback-tab.png" alt="Feedback tab" height="20" /> tab (drag this tab to the left so it's easily accessible)
 4. Use <img src="docs/icon-add.svg" alt="Add" /> to batch annotations. Annotations persist per website, so your feedback can span multiple pages
 5. Hit <img src="docs/icon-send.svg" alt="Send" /> to send to your agent, or <img src="docs/icon-copy.svg" alt="Copy" /> to copy as markdown
 
-You can always copy to clipboard with keyboard shortcuts, even with webhook enabled.
+> You can always copy to clipboard with keyboard shortcuts, even with webhook enabled.
 
 ### Keyboard shortcuts
 
-| Action              | Shortcut                                              |
-| ------------------- | ----------------------------------------------------- |
-| Inspect element     | <kbd><kbd>⌘</kbd> <kbd>⌥</kbd> <kbd>C</kbd></kbd>     |
-| Add                 | <kbd><kbd>⌘</kbd> <kbd>Enter</kbd></kbd>              |
-| Submit              | <kbd><kbd>⌘</kbd> <kbd>⇧</kbd> <kbd>Enter</kbd></kbd> |
-| Copy current        | <kbd><kbd>⌘</kbd> <kbd>X</kbd></kbd>                  |
-| Copy all            | <kbd><kbd>⌘</kbd> <kbd>⇧</kbd> <kbd>X</kbd></kbd>     |
-| Clear current       | <kbd><kbd>⌘</kbd> <kbd>K</kbd></kbd>                  |
-| Clear all           | <kbd><kbd>⌘</kbd> <kbd>⇧</kbd> <kbd>K</kbd></kbd>     |
-| Cancel / Reset      | <kbd>Esc</kbd>                                        |
+| Action          | Shortcut                                              |
+| --------------- | ----------------------------------------------------- |
+| Inspect element | <kbd><kbd>⌘</kbd> <kbd>⌥</kbd> <kbd>C</kbd></kbd>     |
+| Add             | <kbd><kbd>⌘</kbd> <kbd>Enter</kbd></kbd>              |
+| Submit          | <kbd><kbd>⌘</kbd> <kbd>⇧</kbd> <kbd>Enter</kbd></kbd> |
+| Copy current    | <kbd><kbd>⌘</kbd> <kbd>X</kbd></kbd>                  |
+| Copy all        | <kbd><kbd>⌘</kbd> <kbd>⇧</kbd> <kbd>X</kbd></kbd>     |
+| Clear current   | <kbd><kbd>⌘</kbd> <kbd>K</kbd></kbd>                  |
+| Clear all       | <kbd><kbd>⌘</kbd> <kbd>⇧</kbd> <kbd>K</kbd></kbd>     |
+| Cancel / Reset  | <kbd>Esc</kbd>                                        |
 
 ### Example output
 
