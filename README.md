@@ -24,7 +24,7 @@ Install the [Chrome extension](#chrome-extension) and use it with [pi](#pi) or [
 2. Open `chrome://extensions` and enable **Developer mode**
 3. Click **Load unpacked** and select `~/browser-annotations/chrome`
 
-**Updates:** `pnpm update -g @browser-annotations/chrome`, then reload on `chrome://extensions`.
+**Updates:** Run `pnpm update -g @browser-annotations/chrome` and reload the extension in `chrome://extensions`
 
 ### pi
 
@@ -32,7 +32,7 @@ Install the [Chrome extension](#chrome-extension) and use it with [pi](#pi) or [
 2. Start pi with `pi`
 3. Run `/browser-annotations`
 
-**Updates:** `pi update`.
+**Updates:** Run `pi update` in pi
 
 ### Claude Code
 
@@ -41,7 +41,7 @@ Install the [Chrome extension](#chrome-extension) and use it with [pi](#pi) or [
 3. Install the plugin with `/plugin install claude@browser-annotations`
 4. Restart with `claude --dangerously-load-development-channels plugin:claude@browser-annotations`
 
-**Updates:** `/plugin update claude@browser-annotations`.
+**Updates:** Run `/plugin update claude@browser-annotations` in Claude Code
 
 ## Usage
 
