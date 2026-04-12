@@ -1,8 +1,8 @@
 # Browser Annotations
 
-Select elements in the Chrome DevTools, write feedback, and send it to your coding agent.
+Select an element in the Chrome DevTools and send feedback to your [pi](#pi) or [Claude Code](#claude-code) session.
 
-Install the [Chrome extension](#chrome-extension) and use it with [pi](#pi) or [Claude Code](#claude-code).
+Install the [Chrome extension](#chrome-extension) to get started.
 
 ![Sending feedback from the Chrome DevTools to pi.](docs/screenshot.png)
 
