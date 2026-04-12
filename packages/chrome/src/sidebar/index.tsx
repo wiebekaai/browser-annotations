@@ -209,6 +209,10 @@ const Sidebar = () => {
   };
 
   const handleCopyAll = async () => {
+    if (!annotations().length) {
+      return handleCopy();
+    }
+
     const success = await copyToClipboard(
       toBatchMd(annotations(), { comment: comment(), includeScreenshot: false }),
     );
@@ -579,7 +583,7 @@ const Sidebar = () => {
                   )}
                 />
               </button>
-              <Tooltip anchor="--toolbar-copy-button" position="bottom">
+              <Tooltip anchor="--toolbar-copy-button" position="bottom" class="mr-1">
                 <div class="flex flex-col gap-0.5">
                   <span class="inline-flex items-center gap-1">
                     Copy all
