@@ -450,7 +450,7 @@ const Sidebar = () => {
       onPointerDown={clearErrors}
       onKeyDown={clearErrors}
       class={cn(
-        "absolute inset-0 flex flex-col overflow-auto bg-white font-mono text-zinc-950 antialiased dark:bg-panel dark:text-foreground",
+        "absolute inset-0 flex flex-col overflow-auto bg-panel font-mono text-foreground antialiased",
         loading() && "cursor-wait",
       )}
     >

@@ -3,13 +3,24 @@
 @theme {
   --font-mono: "Berkeley Mono", "SF Mono", "Menlo", monospace;
   --text-2xs: 0.625rem;
-  --color-foreground: #ffffff;
+  --color-foreground: var(--color-zinc-950);
   --color-accent: var(--color-violet-400);
-  --color-focus: var(--color-sky-300);
-  --color-panel: #0e0e12;
-  --color-success: var(--color-teal-400);
-  --color-danger: var(--color-rose-400);
+  --color-focus: var(--color-sky-500);
+  --color-panel: #ffffff;
+  --color-success: var(--color-teal-500);
+  --color-danger: var(--color-rose-500);
   --ease-out-quint: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-foreground: #ffffff;
+    --color-accent: var(--color-violet-400);
+    --color-focus: var(--color-sky-300);
+    --color-panel: #0e0e12;
+    --color-success: var(--color-teal-400);
+    --color-danger: var(--color-rose-400);
+  }
 }
 
 html {
@@ -91,6 +102,6 @@ button:not(:disabled) {
   input:-webkit-autofill:hover,
   input:-webkit-autofill:focus,
   input:-webkit-autofill:active {
-    box-shadow: 0 0 0 1000px var(--color-background) inset;
+    box-shadow: 0 0 0 1000px var(--color-panel) inset;
   }
 }
