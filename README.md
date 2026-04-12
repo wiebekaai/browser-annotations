@@ -8,12 +8,12 @@ Install the [Chrome extension](#chrome-extension) and use it with [pi](#pi) or [
 
 ## Features
 
-- **Annotate elements** – Inspect an element, write feedback, and send it to your agent
-- **Rich context** – Captures selector, position, size, viewport, device info, and screenshot
-- **Source mapping** – Links elements to source code in React and Svelte during development
-- **Works everywhere** – Runs in your DevTools, works on any website
-- **Agent collaboration** – Send feedback directly to your [pi](#pi) or [Claude Code](#claude-code) session
+- **Annotate elements** – Select any element and write your feedback
+- **Live agent collaboration** – Send feedback directly to your [pi](#pi) or [Claude Code](#claude-code) session
+- **Capture context** – Captures an elements selector, position, size, viewport, device info, and a screenshot
+- **Source mapping** – Links elements to React and Svelte source code during development
 - **Batch annotations** – Combine feedback across multiple elements and pages
+- **Works everywhere** – Lives in your DevTools, works on any website
 - **Clipboard mode** – Copy annotations as markdown for any workflow
 
 ## Installation
