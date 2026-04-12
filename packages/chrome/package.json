@@ -8,6 +8,9 @@
     "type": "git",
     "url": "git+https://github.com/wiebekaai/browser-annotations.git"
   },
+  "bin": {
+    "browser-annotations": "scripts/install.js"
+  },
   "files": [
     "README.md",
     "dist",
@@ -20,8 +23,7 @@
     "check:types": "tsgo -b ./tsconfig.json",
     "dev": "vite",
     "prepack": "vite build",
-    "release": "npm publish --access public",
-    "postinstall": "node scripts/postinstall.js"
+    "release": "npm publish --access public"
   },
   "dependencies": {
     "clsx": "^2.1.1",

@@ -1,60 +1,34 @@
 # Browser Annotations
 
-Select an element in the Chrome DevTools, add feedback, and send it to your [pi](#pi) or [Claude Code](#claude-code) session.
+Browser Annotations is a DevTools extension to send feedback to your agent.
 
-Install the [Chrome extension](#chrome-extension) to get started.
+Select an element, add feedback, and send it to your pi or Claude Code session.
 
-![Sending feedback from the Chrome DevTools to pi.](https://raw.githubusercontent.com/wiebekaai/browser-annotations/main/docs/screenshot.png)
+![Sending feedback from the Chrome DevTools to pi.](docs/screenshot.png)
 
-## Features
+## Install
 
-- **Annotate elements** – Select any element and write your feedback
-- **Live agent collaboration** – Send feedback directly to your [pi](#pi) or [Claude Code](#claude-code) session
-- **Complete context** – Includes an element's selector, position, size, viewport, device info, and a screenshot
-- **Source mapping** – Links elements to React and Svelte source code during development
-- **Batch annotations** – Combine feedback across multiple elements and pages
-- **Works everywhere** – Lives in your DevTools, works on any website
-- **Clipboard mode** – Copy feedback as markdown for any workflow
+Install the Chrome extension:
 
-## Installation
-
-### Chrome extension
-
-1. Install with `pnpm install -g browser-annotations`
-2. Open `chrome://extensions` and enable <img src="https://raw.githubusercontent.com/wiebekaai/browser-annotations/main/docs/developer-mode.png" alt="Developer mode" height="20" />
-3. Click <img src="https://raw.githubusercontent.com/wiebekaai/browser-annotations/main/docs/load-unpacked.png" alt="Load unpacked" height="24" /> and select `~/browser-annotations/chrome-extension`
-
-**Updates:** Run `pnpm update -g browser-annotations` and reload the extension in `chrome://extensions`
-
-### pi
-
-1. Install with `pi install git:github.com/wiebekaai/browser-annotations`
-2. Start pi with `pi`
-3. Run `/browser-annotations`
-
-**Updates:** Run `pi update` in pi
-
-### Claude Code
-
-1. Start Claude Code with `claude`
-2. Add the marketplace with `/plugin marketplace add wiebekaai/browser-annotations`
-3. Install the plugin with `/plugin install claude@browser-annotations`
-4. Restart with `claude --dangerously-load-development-channels plugin:claude@browser-annotations`
-
-**Updates:** Run `/plugin update claude@browser-annotations` in Claude Code
+```bash
+npx browser-annotations@latest
+```
 
 ## Usage
 
-1. *(Optional)* Start a [pi](#pi) or [Claude Code](#claude-code) session to send feedback directly to your agent
+1. _(Optional)_ Set up your agent to work on your feedback
+   - [pi](packages/pi/README.md) — run `/browser-annotations` in your pi session
+   - [Claude Code](packages/claude/README.md) — start with `claude --dangerously-load-development-channels plugin:claude@browser-annotations`
 2. Select an element in the Chrome DevTools
-3. Add your feedback in the <img src="https://raw.githubusercontent.com/wiebekaai/browser-annotations/main/docs/feedback-tab.png" alt="Feedback tab" height="20" /> tab (drag this tab to the left so it's easily accessible)
-4. Use <img src="https://raw.githubusercontent.com/wiebekaai/browser-annotations/main/docs/icon-add.svg" alt="Add" /> to batch annotations. Annotations persist per website, so your feedback can span multiple pages
-5. Hit <img src="https://raw.githubusercontent.com/wiebekaai/browser-annotations/main/docs/icon-send.svg" alt="Send" /> to send to your agent, or <img src="https://raw.githubusercontent.com/wiebekaai/browser-annotations/main/docs/icon-copy.svg" alt="Copy" /> to copy as markdown
+3. Add your feedback in the Feedback tab (drag this tab to the left so it's easily accessible)
+4. Use <img src="docs/icon-add.svg" alt="Add" /> to batch annotations. Annotations persist per website, so your feedback can span multiple pages
+5. Hit <img src="docs/icon-send.svg" alt="Send" /> to send to your agent, or <img src="docs/icon-copy.svg" alt="Copy" /> to copy as markdown
 
 > [!TIP]
-> Even when using a webhook, <kbd><kbd>⌘</kbd> <kbd>X</kbd></kbd> / <kbd><kbd>⌘</kbd> <kbd>⇧</kbd> <kbd>X</kbd></kbd> copies to clipboard. Handy for quick sharing.
+> <kbd><kbd>⌘</kbd> <kbd>X</kbd></kbd> / <kbd><kbd>⌘</kbd> <kbd>⇧</kbd> <kbd>X</kbd></kbd> copies your feedback to clipboard. Handy for quick sharing.
 
-### Keyboard shortcuts
+<details>
+<summary>Keyboard shortcuts</summary>
 
 | Action          | Shortcut                                              |
 | --------------- | ----------------------------------------------------- |
@@ -67,7 +41,10 @@ Install the [Chrome extension](#chrome-extension) to get started.
 | Clear all       | <kbd><kbd>⌘</kbd> <kbd>⇧</kbd> <kbd>K</kbd></kbd>     |
 | Cancel / Reset  | <kbd>Esc</kbd>                                        |
 
-### Example output
+</details>
+
+<details>
+<summary>Example output</summary>
 
 ```md
 # Feedback
@@ -102,3 +79,15 @@ This should open the sidepanel with packages
 - **Size:** 159×48
 - **Source:** [`components/DocsButton.tsx:8`](components/DocsButton.tsx)
 ```
+
+</details>
+
+## Features
+
+- **Annotate elements** – Select any element and write your feedback
+- **Live agent collaboration** – Send feedback directly to your pi or Claude Code session
+- **Complete context** – Includes an element's selector, position, size, viewport, device info, and a screenshot
+- **Source mapping** – Links elements to React and Svelte source code during development
+- **Batch annotations** – Combine feedback across multiple elements and pages
+- **Works everywhere** – Lives in your DevTools, works on any website
+- **Clipboard mode** – Copy feedback as markdown for any workflow
