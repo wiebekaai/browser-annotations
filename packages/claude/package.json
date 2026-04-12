@@ -4,9 +4,8 @@
   "description": "Receive browser annotations in Claude Code",
   "type": "module",
   "scripts": {
+    "dev": "rm -rf ~/.claude/plugins/cache/browser-annotations && cd ../../ && claude --dangerously-skip-permissions --dangerously-load-development-channels plugin:claude@browser-annotations --debug",
     "start": "pnpm install --prod; node src/index.ts",
-    "dev": "node --watch src/index.ts",
-    "dev:claude": "rm -rf ~/.claude/plugins/cache/browser-annotations && cd ../../ && claude --dangerously-skip-permissions --dangerously-load-development-channels plugin:claude@browser-annotations --debug",
     "check": "pnpm run check:types",
     "check:types": "tsgo -b ./tsconfig.json"
   },
