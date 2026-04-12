@@ -96,14 +96,12 @@ export const SubmitButton: ParentComponent<
               "after:bg-accent",
               "hover:after:bg-[color-mix(in_srgb,var(--color-accent)_90%,var(--color-panel))]",
               "data-loading:after:bg-[color-mix(in_srgb,var(--color-accent)_90%,var(--color-panel))]",
-              "data-submitted:after:bg-[color-mix(in_srgb,var(--color-accent)_90%,var(--color-panel))]",
             ]
           : [
               "text-panel",
               "after:bg-foreground",
               "hover:after:bg-[color-mix(in_srgb,var(--color-foreground)_90%,var(--color-panel))]",
               "data-loading:after:bg-[color-mix(in_srgb,var(--color-foreground)_90%,var(--color-panel))]",
-              "data-submitted:after:bg-[color-mix(in_srgb,var(--color-foreground)_90%,var(--color-panel))]",
             ],
         local.class,
       )}
