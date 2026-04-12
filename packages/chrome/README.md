@@ -1,6 +1,6 @@
 # Browser Annotations
 
-The Browser Annotations Chrome extension is part of your DevTools and allows you to send annotations to an agent.
+Browser Annotations is a DevTools extension to send feedback to your agent.
 
 Select an element, add feedback, and send it to your pi or Claude Code session.
 
