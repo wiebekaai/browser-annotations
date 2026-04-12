@@ -337,12 +337,6 @@ export default function browserAnnotationsExtension(pi: ExtensionAPI) {
     },
   });
 
-  pi.on("session_start", async (_event, ctx) => {
-    await stopServer();
-    state.hasInjectedPrompt = false;
-    await startServer(ctx, state.port);
-  });
-
   pi.on("session_shutdown", async (_event, ctx) => {
     await stopServer();
     updateStatus(ctx, state);
