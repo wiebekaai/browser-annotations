@@ -1,6 +1,6 @@
 # Browser Annotations
 
-Select an element in the Chrome DevTools and send feedback to your [pi](#pi) or [Claude Code](#claude-code) session.
+Select an element in the Chrome DevTools, add feedback, and send it to your [pi](#pi) or [Claude Code](#claude-code) session.
 
 Install the [Chrome extension](#chrome-extension) to get started.
 
