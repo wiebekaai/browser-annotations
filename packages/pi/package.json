@@ -1,6 +1,6 @@
 {
   "name": "@browser-annotations/pi",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Send browser annotations to pi",
   "homepage": "https://github.com/wiebekaai/browser-annotations",
   "author": {
