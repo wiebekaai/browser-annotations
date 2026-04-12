@@ -20,46 +20,24 @@ Install the [Chrome extension](#chrome-extension) and use it with [pi](#pi) or [
 
 ### Chrome extension
 
-```bash
-pnpm install -g @browser-annotations/chrome-extension
-```
-
-Then load the extension in Chrome:
-
-1. Open `chrome://extensions` and enable **Developer mode**
-2. Click **Load unpacked** and select `~/browser-annotations/chrome-extension`
+1. Install with `pnpm install -g @browser-annotations/chrome-extension`
+2. Open `chrome://extensions` and enable **Developer mode**
+3. Click **Load unpacked** and select `~/browser-annotations/chrome-extension`
 
 ### pi
 
-```bash
-# 1. Install the extension
-pi install git:github.com/wiebekaai/browser-annotations
-
-# 2. Start pi
-pi
-
-# 3. Start the browser-annotations server
-/browser-annotations
-```
+1. Install with `pi install git:github.com/wiebekaai/browser-annotations`
+2. Start pi with `pi`
+3. Run `/browser-annotations`
 
 ### Claude Code
 
 Claude Code is a mess, but man do I love Opus, so here's how to use it:
 
-```bash
-# 1. Start Claude Code
-claude
-
-# 2. Add marketplace and install extension
-/plugin marketplace add wiebekaai/browser-annotations
-/plugin install browser-annotations@browser-annotations
-
-# 3. Restart Claude Code with the plugin (here's why it's dangerous: https://code.claude.com/docs/en/channels#research-preview)
-claude --dangerously-load-development-channels plugin:browser-annotations@browser-annotations
-
-# ?. If the server keeps running after closing Claude Code, run this. I'll try to find a better solution.
-bunx kill-port 8765
-```
+1. Start Claude Code with `claude`
+2. Add the marketplace with `/plugin marketplace add wiebekaai/browser-annotations`
+3. Install the plugin with `/plugin install browser-annotations@browser-annotations`
+4. Restart with `claude --dangerously-load-development-channels plugin:browser-annotations@browser-annotations`
 
 ## Usage
 
