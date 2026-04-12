@@ -1,7 +1,6 @@
 {
   "name": "@browser-annotations/claude",
-  "private": true,
-  "description": "Receive browser annotations in Claude Code",
+  "description": "Receive feedback from the Browser Annotations Chrome extension.",
   "type": "module",
   "scripts": {
     "dev": "rm -rf ~/.claude/plugins/cache/browser-annotations && cd ../../ && claude --dangerously-skip-permissions --dangerously-load-development-channels plugin:claude@browser-annotations --debug",

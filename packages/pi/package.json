@@ -1,8 +1,15 @@
 {
   "name": "@browser-annotations/pi",
   "version": "1.6.2",
-  "description": "Send browser annotations to pi",
-  "homepage": "https://github.com/wiebekaai/browser-annotations",
+  "description": "Receive feedback from the Browser Annotations Chrome extension.",
+  "keywords": [
+    "annotations",
+    "browser",
+    "browser-annotations",
+    "chrome",
+    "pi-package"
+  ],
+  "homepage": "https://browser-annotations.dev/",
   "author": {
     "name": "Wiebe Kaai"
   },
