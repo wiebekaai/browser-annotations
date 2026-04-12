@@ -4,7 +4,7 @@ Select an element in the Chrome DevTools, add feedback, and send it to your [pi]
 
 Install the [Chrome extension](#chrome-extension) to get started.
 
-![Sending feedback from the Chrome DevTools to pi.](docs/screenshot.png)
+![Sending feedback from the Chrome DevTools to pi.](https://raw.githubusercontent.com/wiebekaai/browser-annotations/main/docs/screenshot.png)
 
 ## Features
 
@@ -21,8 +21,8 @@ Install the [Chrome extension](#chrome-extension) to get started.
 ### Chrome extension
 
 1. Install with `pnpm install -g browser-annotations`
-2. Open `chrome://extensions` and enable **Developer mode**
-3. Click **Load unpacked** and select `~/browser-annotations/chrome-extension`
+2. Open `chrome://extensions` and enable <img src="https://raw.githubusercontent.com/wiebekaai/browser-annotations/main/docs/developer-mode.png" alt="Developer mode" height="20" />
+3. Click <img src="https://raw.githubusercontent.com/wiebekaai/browser-annotations/main/docs/load-unpacked.png" alt="Load unpacked" height="24" /> and select `~/browser-annotations/chrome-extension`
 
 **Updates:** Run `pnpm update -g browser-annotations` and reload the extension in `chrome://extensions`
 
@@ -45,13 +45,11 @@ Install the [Chrome extension](#chrome-extension) to get started.
 
 ## Usage
 
-1. Choose your mode
-   - **Webhook on** — Send feedback directly to your agent (see [pi](#pi) or [Claude Code](#claude-code) setup)
-   - **Webhook off** — Copy feedback as markdown to your clipboard
+1. *(Optional)* Start a [pi](#pi) or [Claude Code](#claude-code) session to send feedback directly to your agent
 2. Select an element in the Chrome DevTools
-3. Write your feedback in the <img src="docs/feedback-tab.png" alt="Feedback tab" height="20" /> tab (drag this tab to the left so it's easily accessible)
-4. Use <img src="docs/icon-add.svg" alt="Add" /> to batch annotations. Annotations persist per website, so your feedback can span multiple pages
-5. Hit <img src="docs/icon-send.svg" alt="Send" /> to send to your agent, or <img src="docs/icon-copy.svg" alt="Copy" /> to copy as markdown
+3. Add your feedback in the <img src="https://raw.githubusercontent.com/wiebekaai/browser-annotations/main/docs/feedback-tab.png" alt="Feedback tab" height="20" /> tab (drag this tab to the left so it's easily accessible)
+4. Use <img src="https://raw.githubusercontent.com/wiebekaai/browser-annotations/main/docs/icon-add.svg" alt="Add" /> to batch annotations. Annotations persist per website, so your feedback can span multiple pages
+5. Hit <img src="https://raw.githubusercontent.com/wiebekaai/browser-annotations/main/docs/icon-send.svg" alt="Send" /> to send to your agent, or <img src="https://raw.githubusercontent.com/wiebekaai/browser-annotations/main/docs/icon-copy.svg" alt="Copy" /> to copy as markdown
 
 > [!TIP]
 > Even when using a webhook, <kbd><kbd>⌘</kbd> <kbd>X</kbd></kbd> / <kbd><kbd>⌘</kbd> <kbd>⇧</kbd> <kbd>X</kbd></kbd> copies to clipboard. Handy for quick sharing.
