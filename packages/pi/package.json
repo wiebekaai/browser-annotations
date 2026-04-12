@@ -38,6 +38,7 @@
   "pi": {
     "extensions": [
       "./src/index.ts"
-    ]
+    ],
+    "image": "https://raw.githubusercontent.com/wiebekaai/browser-annotations/main/docs/screenshot.png"
   }
 }
