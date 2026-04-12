@@ -8,7 +8,7 @@ Select an element, add feedback, and send it to your pi or Claude Code session.
 
 ## Install
 
-Install the Chrome extension:
+Install the Chrome extension
 
 ```bash
 npx browser-annotations@latest
@@ -27,8 +27,17 @@ npx browser-annotations@latest
 > [!TIP]
 > <kbd><kbd>⌘</kbd> <kbd>X</kbd></kbd> / <kbd><kbd>⌘</kbd> <kbd>⇧</kbd> <kbd>X</kbd></kbd> copies your feedback to clipboard. Handy for quick sharing.
 
-<details>
-<summary>Keyboard shortcuts</summary>
+## Features
+
+- **Annotate elements** – Select any element and write your feedback
+- **Live agent collaboration** – Send feedback directly to your pi or Claude Code session
+- **Complete context** – Includes an element's selector, position, size, viewport, device info, and a screenshot
+- **Source mapping** – Links elements to React and Svelte source code during development
+- **Batch annotations** – Combine feedback across multiple elements and pages
+- **Works everywhere** – Lives in your DevTools, works on any website
+- **Clipboard mode** – Copy feedback as markdown for any workflow
+
+## Keyboard shortcuts
 
 | Action          | Shortcut                                              |
 | --------------- | ----------------------------------------------------- |
@@ -41,10 +50,7 @@ npx browser-annotations@latest
 | Clear all       | <kbd><kbd>⌘</kbd> <kbd>⇧</kbd> <kbd>K</kbd></kbd>     |
 | Cancel / Reset  | <kbd>Esc</kbd>                                        |
 
-</details>
-
-<details>
-<summary>Example output</summary>
+## Example output
 
 ```md
 # Feedback
@@ -79,15 +85,3 @@ This should open the sidepanel with packages
 - **Size:** 159×48
 - **Source:** [`components/DocsButton.tsx:8`](components/DocsButton.tsx)
 ```
-
-</details>
-
-## Features
-
-- **Annotate elements** – Select any element and write your feedback
-- **Live agent collaboration** – Send feedback directly to your pi or Claude Code session
-- **Complete context** – Includes an element's selector, position, size, viewport, device info, and a screenshot
-- **Source mapping** – Links elements to React and Svelte source code during development
-- **Batch annotations** – Combine feedback across multiple elements and pages
-- **Works everywhere** – Lives in your DevTools, works on any website
-- **Clipboard mode** – Copy feedback as markdown for any workflow
