@@ -1,6 +1,6 @@
 {
   "name": "@browser-annotations/pi",
-  "version": "1.6.2",
+  "version": "1.6.3",
   "description": "Receive feedback from the Browser Annotations Chrome extension.",
   "keywords": [
     "annotations",
