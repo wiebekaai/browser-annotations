@@ -6,10 +6,5 @@
     "name": "Wiebe Kaai"
   },
   "homepage": "https://browser-annotations.dev",
-  "keywords": [
-    "browser-annotations",
-    "chrome",
-    "channel",
-    "mcp"
-  ]
+  "keywords": ["browser-annotations", "chrome", "channel", "mcp"]
 }
