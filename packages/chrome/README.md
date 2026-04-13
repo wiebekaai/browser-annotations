@@ -1,6 +1,6 @@
 # Browser Annotations
 
-Browser Annotations is a DevTools extension to send feedback to your agent.
+[Browser Annotations](https://browser-annotations.dev/) is a Chrome DevTools extension to send feedback to your agent.
 
 Select an element, add feedback, and send it to your pi or Claude Code session.
 
@@ -14,11 +14,24 @@ Install the Chrome extension
 npx browser-annotations@latest
 ```
 
+Install the pi extension
+
+```bash
+pi install npm:@browser-annotations/pi
+```
+
+Install the Claude Code plugin
+
+```bash
+/plugin marketplace add wiebekaai/browser-annotations
+/plugin install claude@browser-annotations
+```
+
 ## Usage
 
 1. _(Optional)_ Set up your agent to work on your feedback
-   - [pi](packages/pi/README.md) — run `/browser-annotations` in your pi session
-   - [Claude Code](packages/claude/README.md) — start with `claude --dangerously-load-development-channels plugin:claude@browser-annotations`
+   - pi — `/browser-annotations`
+   - Claude Code — `claude --dangerously-load-development-channels plugin:claude@browser-annotations`
 2. Select an element in the Chrome DevTools
 3. Add your feedback in the Feedback tab (drag this tab to the left so it's easily accessible)
 4. Use <img src="docs/icon-add.svg" alt="Add" /> to batch annotations. Annotations persist per website, so your feedback can span multiple pages
@@ -29,13 +42,12 @@ npx browser-annotations@latest
 
 ## Features
 
-- **Annotate elements** – Select any element and write your feedback
-- **Live agent collaboration** – Send feedback directly to your pi or Claude Code session
+- **Annotate any website** – Select an element with <kbd><kbd>⌘</kbd> <kbd>⌥</kbd> <kbd>C</kbd></kbd> and write your feedback in the DevTools sidebar
+- **Live agent collaboration** – Send feedback directly to your pi or Claude Code session via a webhook
 - **Complete context** – Includes an element's selector, position, size, viewport, device info, and a screenshot
 - **Source mapping** – Links elements to React and Svelte source code during development
-- **Batch annotations** – Combine feedback across multiple elements and pages
-- **Works everywhere** – Lives in your DevTools, works on any website
-- **Clipboard mode** – Copy feedback as markdown for any workflow
+- **Batch annotations** – Annotate elements across multiple pages and send them as one prompt
+- **Clipboard support** – Copy feedback and its context as markdown for quick sharing
 
 ## Keyboard shortcuts
 

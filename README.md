@@ -42,13 +42,12 @@ Install the Claude Code plugin
 
 ## Features
 
-- **Annotate elements** – Select any element and write your feedback
-- **Live agent collaboration** – Send feedback directly to your pi or Claude Code session
+- **Annotate any website** – Select an element with <kbd><kbd>⌘</kbd> <kbd>⌥</kbd> <kbd>C</kbd></kbd> and write your feedback in the DevTools sidebar
+- **Live agent collaboration** – Send feedback directly to your pi or Claude Code session via a webhook
 - **Complete context** – Includes an element's selector, position, size, viewport, device info, and a screenshot
 - **Source mapping** – Links elements to React and Svelte source code during development
-- **Batch annotations** – Combine feedback across multiple elements and pages
-- **Works everywhere** – Lives in your DevTools, works on any website
-- **Clipboard mode** – Copy feedback as markdown for any workflow
+- **Batch annotations** – Annotate elements across multiple pages and send them as one prompt
+- **Clipboard support** – Copy feedback and its context as markdown for quick sharing
 
 ## Keyboard shortcuts
 
