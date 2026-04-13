@@ -50,19 +50,6 @@ Install the Claude Code plugin
 - **Source mapping** — Links elements to React and Svelte source code during development
 - **Batch annotations** — Annotate elements across multiple pages and send them as one prompt
 
-## Keyboard shortcuts
-
-| Action          | Shortcut                                              |
-| --------------- | ----------------------------------------------------- |
-| Inspect element | <kbd><kbd>⌘</kbd> <kbd>⌥</kbd> <kbd>C</kbd></kbd>     |
-| Add             | <kbd><kbd>⌘</kbd> <kbd>Enter</kbd></kbd>              |
-| Submit          | <kbd><kbd>⌘</kbd> <kbd>⇧</kbd> <kbd>Enter</kbd></kbd> |
-| Copy current    | <kbd><kbd>⌘</kbd> <kbd>X</kbd></kbd>                  |
-| Copy all        | <kbd><kbd>⌘</kbd> <kbd>⇧</kbd> <kbd>X</kbd></kbd>     |
-| Clear current   | <kbd><kbd>⌘</kbd> <kbd>K</kbd></kbd>                  |
-| Clear all       | <kbd><kbd>⌘</kbd> <kbd>⇧</kbd> <kbd>K</kbd></kbd>     |
-| Cancel / Reset  | <kbd>Esc</kbd>                                        |
-
 ## Example output
 
 ```md
@@ -98,3 +85,16 @@ This should open the sidepanel with packages
 - **Size:** 159×48
 - **Source:** [`components/DocsButton.tsx:8`](components/DocsButton.tsx)
 ```
+
+## Keyboard shortcuts
+
+| Action          | Shortcut                                              |
+| --------------- | ----------------------------------------------------- |
+| Inspect element | <kbd><kbd>⌘</kbd> <kbd>⌥</kbd> <kbd>C</kbd></kbd>     |
+| Add             | <kbd><kbd>⌘</kbd> <kbd>Enter</kbd></kbd>              |
+| Submit          | <kbd><kbd>⌘</kbd> <kbd>⇧</kbd> <kbd>Enter</kbd></kbd> |
+| Copy current    | <kbd><kbd>⌘</kbd> <kbd>X</kbd></kbd>                  |
+| Copy all        | <kbd><kbd>⌘</kbd> <kbd>⇧</kbd> <kbd>X</kbd></kbd>     |
+| Clear current   | <kbd><kbd>⌘</kbd> <kbd>K</kbd></kbd>                  |
+| Clear all       | <kbd><kbd>⌘</kbd> <kbd>⇧</kbd> <kbd>K</kbd></kbd>     |
+| Cancel / Reset  | <kbd>Esc</kbd>                                        |
