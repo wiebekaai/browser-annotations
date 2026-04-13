@@ -7,7 +7,7 @@
     {
       "name": "claude",
       "source": "./packages/claude",
-      "description": "Receive browser annotations directly in your Claude Code session"
+      "description": "Select an element, add feedback, and send it to Claude Code."
     }
   ]
 }
