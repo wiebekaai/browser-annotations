@@ -1,7 +1,7 @@
 {
   "name": "claude",
   "description": "Send browser annotations to Claude Code",
-  "version": "1.6.3",
+  "version": "1.6.4",
   "author": {
     "name": "Wiebe Kaai"
   },
