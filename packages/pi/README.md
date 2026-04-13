@@ -1,9 +1,5 @@
 # @browser-annotations/pi
 
-A pi extension that listens to the Browser Annotations Chrome DevTools extension.
+[Browser Annotations](https://browser-annotations.dev/) is a Chrome DevTools extension to send feedback to your agent.
 
-## Install
-
-1. `pi install npm:@browser-annotations/pi`
-2. Start pi with `pi`
-3. Run `/browser-annotations`
+Select an element, add feedback, and send it to your pi session.
