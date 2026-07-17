@@ -5,12 +5,11 @@ description: Implement or test source detection on local development servers.
 
 # Source detection
 
-Use this when changing or validating `packages/chrome/src/sidebar/sources.ts` and the inlined copy in `selection-context.ts`.
+Use this when changing or validating the source detection inlined in `packages/chrome/src/sidebar/selection-context.ts`. The shared `SourceContext` / `SourceLocation` types live in `sources.ts`.
 
 ## Rules
 
 - Keep `SourceContext` / `SourceLocation` stable unless asked.
-- Keep `sources.ts` and the inlined `getSourceContext` in `selection-context.ts` in sync.
 
 ## Browser loop
 

@@ -1,24 +1,5 @@
 import type { Annotation } from "~/sidebar/annotations";
 
-export const toJson = (
-  annotation: Annotation,
-  { includeScreenshot = true }: { includeScreenshot?: boolean } = {},
-) => {
-  const { id: _id, createdAt: _createdAt, screenshot, page, source, ...rest } = annotation;
-
-  return {
-    ...rest,
-    ...(includeScreenshot && screenshot ? { screenshot } : {}),
-    page: {
-      href: page.href,
-      userAgent: page.userAgent,
-      devicePixelRatio: page.devicePixelRatio,
-      viewport: page.viewport,
-    },
-    ...(source?.location ? { source: `${source.location.file}:${source.location.line}` } : {}),
-  };
-};
-
 const toAnnotationMd = (
   annotation: Annotation,
   index: number,
