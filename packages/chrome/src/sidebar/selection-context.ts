@@ -1,5 +1,6 @@
+import { TraceMap, originalPositionFor } from "@jridgewell/trace-mapping";
 import { createSignal } from "solid-js";
-import type { SourceContext } from "~/sidebar/sources";
+import type { SourceContext, SourceLocation } from "~/sidebar/sources";
 import { evalInspectedWindowJson } from "~/sidebar/eval-inspected-window";
 
 export type PageContext = {
@@ -24,6 +25,43 @@ export type SelectionContext = {
   page: PageContext;
   boundingBox: BoundingBox;
   source?: SourceContext;
+};
+
+type EvaluatedSourceContext = SourceContext & {
+  generated?: true;
+};
+
+const remapReactSourceLocation = async (
+  generatedUrl: string,
+  location: SourceLocation,
+): Promise<SourceLocation> => {
+  try {
+    const source = await (await fetch(generatedUrl)).text();
+    const sourceMap = [
+      ...source.matchAll(/sourceMappingURL=data:application\/json;base64,([^\s]+)/g),
+    ].at(-1)?.[1];
+
+    if (!sourceMap) {
+      return location;
+    }
+
+    const original = originalPositionFor(new TraceMap(atob(sourceMap)), {
+      line: location.line,
+      column: location.column - 1,
+    });
+
+    if (!original.source || original.line === null || original.column === null) {
+      return location;
+    }
+
+    return {
+      file: new URL(original.source, generatedUrl).pathname,
+      line: original.line,
+      column: original.column + 1,
+    };
+  } catch {
+    return location;
+  }
 };
 
 // Stringified and eval'd in the inspected page via chrome.devtools.inspectedWindow.eval.
@@ -108,7 +146,7 @@ function getSelectionContextPayload() {
     throw new Error("The current devtools selection is not an element, comment, or text node.");
   }
 
-  const getSourceContext = (element: Element): SourceContext | undefined => {
+  const getSourceContext = (element: Element): EvaluatedSourceContext | undefined => {
     const isRecord = (value: unknown): value is Record<string, unknown> =>
       !!value && typeof value === "object";
 
@@ -253,7 +291,7 @@ function getSelectionContextPayload() {
       };
     };
 
-    const getReactSourceContext = (): SourceContext | undefined => {
+    const getReactSourceContext = (): EvaluatedSourceContext | undefined => {
       const fiber = getFiber(element);
 
       if (!fiber) {
@@ -273,7 +311,7 @@ function getSelectionContextPayload() {
           const stackLocation = parseReactStackLocation(current._debugStack.stack ?? "");
 
           if (stackLocation) {
-            return { framework: "react", location: stackLocation };
+            return { framework: "react", location: stackLocation, generated: true };
           }
         }
 
@@ -283,7 +321,7 @@ function getSelectionContextPayload() {
           );
 
           if (ownerLocation) {
-            return { framework: "react", location: ownerLocation };
+            return { framework: "react", location: ownerLocation, generated: true };
           }
         }
 
@@ -339,7 +377,11 @@ function getSelectionContextPayload() {
 const resolveSelectionContext = async (): Promise<SelectionContext | null> => {
   const script = `(${getSelectionContextPayload})();`;
 
-  const { payload, error } = await evalInspectedWindowJson<SelectionContext>(script, "context");
+  const { payload, error } = await evalInspectedWindowJson<
+    SelectionContext & {
+      source?: EvaluatedSourceContext;
+    }
+  >(script, "context");
 
   if (!payload) {
     if (error) {
@@ -349,7 +391,25 @@ const resolveSelectionContext = async (): Promise<SelectionContext | null> => {
     return null;
   }
 
-  return payload;
+  if (
+    payload.source?.framework !== "react" ||
+    !payload.source.generated ||
+    !payload.source.location
+  ) {
+    return payload;
+  }
+
+  const location = payload.source.location;
+  const { generated: _generated, ...source } = payload.source;
+  const generatedUrl = new URL(location.file, payload.page.href).href;
+
+  return {
+    ...payload,
+    source: {
+      ...source,
+      location: await remapReactSourceLocation(generatedUrl, location),
+    },
+  };
 };
 
 export function createSelectionContext() {
